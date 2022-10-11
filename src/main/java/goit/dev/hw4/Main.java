@@ -3,6 +3,7 @@ package goit.dev.hw4;
 
 
 import goit.dev.hw4.api.AgregateController;
+import goit.dev.hw4.api.DeleteController;
 import goit.dev.hw4.api.InsertController;
 import goit.dev.hw4.api.SelectController;
 import goit.dev.hw4.api.mapper.*;
@@ -36,6 +37,15 @@ public class Main {
         SelectService<DeveloperWithProjects> selectDevelopersWithProjectsService
                 = new SelectDeveloperWithProjectService(manager);
         AgregateService<Integer> totalSallrayService = new TotalSalaryService(manager);
+
+        // Delete developer
+        DeleteController deleteDeveloperController
+                = new DeleteController(new DeleteDeveloperService(manager));
+        deleteDeveloperController.delete(
+                new DeleteDeveloperQuery(
+                        statement -> statement.setLong(1, 4)
+                )
+        );
 
         // Insert new developer
         InsertController insertDeveloperController

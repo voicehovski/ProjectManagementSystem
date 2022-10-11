@@ -16,7 +16,7 @@ public class InsertDeveloperService implements InsertService {
 
     @Override
     public long insert(Query query) {
-        InsertQueryExecutor<Developer> executor = new InsertQueryExecutor<>(connector);
+        InsertQueryExecutor executor = new InsertQueryExecutor(connector);
         return executor.execute(query);
     }
 }

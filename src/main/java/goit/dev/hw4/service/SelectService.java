@@ -13,6 +13,3 @@ interface UpdateService<R> {
     void update (Query<R> query);
 }
 
-interface DeleteService<R> {
-    void delete (Query<R> query);
-}
