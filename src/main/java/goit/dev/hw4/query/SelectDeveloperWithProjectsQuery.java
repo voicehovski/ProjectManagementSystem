@@ -12,8 +12,8 @@ import java.util.Map;
 
 public class SelectDeveloperWithProjectsQuery extends AbstractQuery<DeveloperWithProjects> {
     public static final String QUERY = "SELECT " +
-            "developer.id AS developer_id, developer.name AS developer_name, birth_date, birthplace, gender, salary " +
-            "project.id as project_id, project.name AS project_name, company_id, customer_id, cost " +
+            "developer.id AS developer_id, developer.name AS developer_name, birth_date, birthplace, gender, salary, " +
+            "project.id as project_id, project.name AS project_name, start, company_id, customer_id, cost " +
 
             "FROM developers_to_projects AS d2p " +
             "INNER JOIN developers AS developer ON d2p.developer_id = developer.id " +

@@ -1,6 +1,8 @@
 package goit.dev.hw4.service;
 
+import goit.dev.hw4.config.DatabaseManagerConnector;
 import goit.dev.hw4.model.Developer;
+import goit.dev.hw4.query.Query;
 import goit.dev.hw4.query.SelectDeveloperQuery;
 import goit.dev.hw4.query.condition.FilterCondition;
 import goit.dev.hw4.query.executor.SelectQueryExecutor;
@@ -8,19 +10,15 @@ import goit.dev.hw4.query.executor.SelectQueryExecutor;
 import java.util.List;
 
 public class SelectDeveloperService extends SelectService<Developer> {
-    public SelectDeveloperService(SelectQueryExecutor<Developer> executor) {
-        this.executor = executor;
+    DatabaseManagerConnector connector;
+
+    public SelectDeveloperService(DatabaseManagerConnector connector) {
+        this.connector = connector;
     }
 
-    public List<Developer> select (FilterCondition filterCondition) {
+    public List<Developer> select (Query<Developer> query) {
         //FilterCondition filterCondition = statement -> statement.setString(1,skillTrend);
-        SelectDeveloperQuery query = new SelectDeveloperQuery();
-        return executor.execute (query);
-    }
-
-    @Override
-    public List<Developer> select() {
-        SelectDeveloperQuery query = new SelectDeveloperQuery();
+        SelectQueryExecutor<Developer> executor = new SelectQueryExecutor<>(connector);
         return executor.execute (query);
     }
 }

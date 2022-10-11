@@ -1,6 +1,7 @@
 package goit.dev.hw4.api;
 
 import goit.dev.hw4.api.mapper.Mapper;
+import goit.dev.hw4.query.Query;
 import goit.dev.hw4.query.condition.FilterCondition;
 import goit.dev.hw4.service.SelectService;
 
@@ -16,16 +17,8 @@ public class SelectController <R, E> { // RESULT_DTO, ENTITY
         this.mapper = mapper;
     }
 
-    public List<R> select (FilterCondition filter) {
-        return entityToDtoList(service.select(filter));
-    }
-
-    public List<R> select(){
-        return entityToDtoList(service.select());
-    }
-
-    private List<R> entityToDtoList (List<E> entityList) {
-        return entityList.stream()
+    public List<R> select (Query<E> query) {
+        return service.select(query).stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
