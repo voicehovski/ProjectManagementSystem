@@ -8,6 +8,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class TotalSalaryQuery extends AbstractQuery<Integer> {
+
+    public TotalSalaryQuery(FilterCondition condition) {
+        this .filterCondition = condition;
+    }
+
     @Override
     public String getQuery() {
         return "SELECT " +
@@ -17,10 +22,6 @@ public class TotalSalaryQuery extends AbstractQuery<Integer> {
                 "INNER JOIN developers_to_projects ON developers.id = developer_id " +
 
                 "WHERE project_id = ?";
-    }
-
-    public TotalSalaryQuery(FilterCondition condition) {
-        this .filterCondition = condition;
     }
 
     @Override
