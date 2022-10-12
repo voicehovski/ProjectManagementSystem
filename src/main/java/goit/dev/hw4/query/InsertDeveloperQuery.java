@@ -1,11 +1,6 @@
 package goit.dev.hw4.query;
 
-import goit.dev.hw4.model.Developer;
 import goit.dev.hw4.query.condition.FilterCondition;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
 
 public class InsertDeveloperQuery extends AbstractInsertQuery {
 

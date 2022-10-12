@@ -4,10 +4,10 @@ import goit.dev.hw4.config.DatabaseManagerConnector;
 import goit.dev.hw4.query.Query;
 import goit.dev.hw4.query.executor.DeleteQueryExecutor;
 
-public class DeleteDeveloperService implements DeleteService {
+public class DeleteEntityService implements DeleteService {
     DatabaseManagerConnector connector;
 
-    public DeleteDeveloperService(DatabaseManagerConnector connector) {
+    public DeleteEntityService(DatabaseManagerConnector connector) {
         this.connector = connector;
     }
 

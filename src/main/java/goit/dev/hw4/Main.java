@@ -2,18 +2,13 @@ package goit.dev.hw4;
 
 
 
-import goit.dev.hw4.api.AgregateController;
-import goit.dev.hw4.api.DeleteController;
-import goit.dev.hw4.api.InsertController;
-import goit.dev.hw4.api.SelectController;
+import goit.dev.hw4.api.*;
 import goit.dev.hw4.api.mapper.*;
 import goit.dev.hw4.config.DatabaseManagerConnector;
 import goit.dev.hw4.config.PropertiesConfig;
 import goit.dev.hw4.model.Developer;
 import goit.dev.hw4.model.DeveloperWithProjects;
-import goit.dev.hw4.model.dto.DeveloperDto;
-import goit.dev.hw4.model.dto.DeveloperWithProjectsDto;
-import goit.dev.hw4.model.dto.NumberDto;
+import goit.dev.hw4.model.dto.*;
 import goit.dev.hw4.query.*;
 import goit.dev.hw4.service.*;
 
@@ -39,51 +34,39 @@ public class Main {
         AgregateService<Integer> totalSallrayService = new TotalSalaryService(manager);
 
         // Delete developer
-        DeleteController deleteDeveloperController
-                = new DeleteController(new DeleteDeveloperService(manager));
-        deleteDeveloperController.delete(
-                new DeleteDeveloperQuery(
-                        statement -> statement.setLong(1, 4)
-                )
-        );
+        // new DeleteDeveloperController(manager).delete(new IdDto(4));
 
         // Insert new developer
-        InsertController insertDeveloperController
-                = new InsertController(new InsertDeveloperService(manager));
-        long createdDeveloperId = insertDeveloperController.insert(
-                new InsertDeveloperQuery(statement -> {
-                    statement.setString(1,"Sam");
-                    statement.setDate(2, Date.valueOf("1992-01-01"));
-                    statement.setString(3,"Shire");
-                    statement.setString(4,"male");
-                    statement.setInt(5,3000);
-                })
+        new InsertDeveloperController(manager).insert(
+            new DeveloperDto(0, "Sam", Date.valueOf("1992-01-01"), "Shire", "male", 3000)
         );
+
 
         //Select different developer sets
         SelectController<DeveloperDto, Developer> selectDeveloperController
                 = new SelectController<>(selectDeveloperService, developerMapper);
-                //= new SelectDeveloperController(selectDeveloperService, developerMapper);
-        List<DeveloperDto> allDevelopers = selectDeveloperController.select(new SelectDeveloperQuery());
-        List<DeveloperDto> javaDevelopers = selectDeveloperController.select(
-                new SelectDevelopersBySkillTrendQuery(statement -> statement.setString(1, "java"))
-        );
-        List<DeveloperDto> middleDevelopers = selectDeveloperController.select(
-                new SelectDevelopersBySkillLevelQuery(statement -> statement.setString(1, "middle"))
-        );
+        List<DeveloperDto> allDevelopers
+                = new SelectAllDevelopersController (selectDeveloperController).select();
+        List<DeveloperDto> javaDevelopers
+                = new SelectDevelopersBySkillTrendContorller(selectDeveloperController)
+                .select(new FilterByStringDto("java"));
+        List<DeveloperDto> middleDevelopers
+                = new SelectDevelopersBySkillLevelContorller (selectDeveloperController)
+                .select(new FilterByStringDto("middle"));
+
 
         // Select all developer with projects set
         SelectController <DeveloperWithProjectsDto, DeveloperWithProjects> selectDeveloperWithProjectsController
                 = new SelectController<>(selectDevelopersWithProjectsService, developerWithProjectsMapper);
-        List<DeveloperWithProjectsDto> allDevelopersWithProjects =
-        selectDeveloperWithProjectsController.select(new SelectDeveloperWithProjectsQuery());
+        List<DeveloperWithProjectsDto> allDevelopersWithProjects
+                = new SelectDeveloperWithProjectsController(selectDeveloperWithProjectsController)
+                .select();
 
         // Select total salary in particular project
         AgregateController<NumberDto, Integer> agregateTotalSalaryByProjectController
                 = new AgregateController<>(totalSallrayService,new NumberMapper());
-        NumberDto totalSallary = agregateTotalSalaryByProjectController.select(
-                new TotalSalaryQuery(statement -> statement.setLong(1,1L))    // Value from Dto
-        );
-
+        NumberDto totalSallary
+                = new AgregateTotalSalaryByProjectController(agregateTotalSalaryByProjectController)
+                .select(new IdDto(1L));
     }
 }

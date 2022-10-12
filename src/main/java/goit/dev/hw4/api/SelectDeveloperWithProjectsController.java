@@ -14,4 +14,8 @@ extends SelectController <DeveloperWithProjectsDto, DeveloperWithProjects> {
     ) {
         super(service, mapper);
     }
+
+    public List<DeveloperWithProjectsDto> select () {
+        return commonController.select(new SelectDeveloperWithProjectsQuery());
+    }
 }
