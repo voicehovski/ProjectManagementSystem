@@ -9,10 +9,8 @@ import goit.dev.hw4.config.PropertiesConfig;
 import goit.dev.hw4.model.Developer;
 import goit.dev.hw4.model.DeveloperWithProjects;
 import goit.dev.hw4.model.dto.*;
-import goit.dev.hw4.query.*;
 import goit.dev.hw4.service.*;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -28,9 +26,9 @@ public class Main {
         //<DeveloperWithProjectsDto, DeveloperWithProjects>
         DeveloperWithProjectsMapper developerWithProjectsMapper = new DeveloperWithProjectsMapper(developerMapper, projectMapper);
 
-        SelectService<Developer> selectDeveloperService = new SelectDeveloperService(manager);
+        SelectService<Developer> selectDeveloperService = new SelectEntityService(manager);
         SelectService<DeveloperWithProjects> selectDevelopersWithProjectsService
-                = new SelectDeveloperWithProjectService(manager);
+                = new SelectEntityService(manager);
         AgregateService<Integer> totalSallrayService = new TotalSalaryService(manager);
 
         // Delete developer

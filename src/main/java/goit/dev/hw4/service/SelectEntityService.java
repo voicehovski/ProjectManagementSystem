@@ -7,15 +7,15 @@ import goit.dev.hw4.query.executor.SelectQueryExecutor;
 
 import java.util.List;
 
-public class SelectDeveloperService implements SelectService<Developer> {
+public class SelectEntityService<E> implements SelectService<E> {
     DatabaseManagerConnector connector;
 
-    public SelectDeveloperService(DatabaseManagerConnector connector) {
+    public SelectEntityService(DatabaseManagerConnector connector) {
         this.connector = connector;
     }
 
-    public List<Developer> select (Query<Developer> query) {
-        SelectQueryExecutor<Developer> executor = new SelectQueryExecutor<>(connector);
+    public List<E> select (Query<E> query) {
+        SelectQueryExecutor<E> executor = new SelectQueryExecutor<>(connector);
         return executor.execute (query);
     }
 }
