@@ -1,7 +1,7 @@
 package goit.dev.hw4.query;
 
 import goit.dev.hw4.model.*;
-import goit.dev.hw4.query.condition.FilterCondition;
+import goit.dev.hw4.query.common.AbstractQuery;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

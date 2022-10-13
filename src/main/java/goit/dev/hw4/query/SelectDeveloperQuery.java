@@ -1,16 +1,12 @@
 package goit.dev.hw4.query;
 
 import goit.dev.hw4.model.Developer;
-import goit.dev.hw4.model.DeveloperWithProjects;
-import goit.dev.hw4.model.Project;
-import goit.dev.hw4.query.condition.FilterCondition;
+import goit.dev.hw4.query.common.AbstractQuery;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class SelectDeveloperQuery extends AbstractQuery<Developer> {
     public static final String QUERY = "SELECT " +

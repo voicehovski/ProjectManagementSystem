@@ -1,4 +1,4 @@
-package goit.dev.hw4.query;
+package goit.dev.hw4.query.common;
 
 import goit.dev.hw4.query.condition.FilterCondition;
 
@@ -6,12 +6,12 @@ import java.sql.*;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractInsertQuery implements Query {
+public abstract class AbstractDeleteQuery implements Query {
     protected FilterCondition filterCondition;
 
     @Override
     public PreparedStatement createStatement(Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(getQuery(), Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement statement = connection.prepareStatement(getQuery());
         filterCondition.setConditionTo(statement);
         return statement;
     }

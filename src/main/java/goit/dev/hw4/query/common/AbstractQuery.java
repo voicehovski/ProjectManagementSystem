@@ -1,4 +1,4 @@
-package goit.dev.hw4.query;
+package goit.dev.hw4.query.common;
 
 import goit.dev.hw4.query.condition.FilterCondition;
 

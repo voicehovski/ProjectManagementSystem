@@ -1,6 +1,6 @@
 package goit.dev.hw4.service;
 
-import goit.dev.hw4.query.Query;
+import goit.dev.hw4.query.common.Query;
 
 import java.util.List;
 

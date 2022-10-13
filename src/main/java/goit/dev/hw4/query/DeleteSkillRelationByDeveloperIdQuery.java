@@ -1,9 +1,10 @@
 package goit.dev.hw4.query;
 
+import goit.dev.hw4.query.common.AbstractDeleteQuery;
 import goit.dev.hw4.query.condition.FilterCondition;
 
-public class DeleteSkillRelationQuery extends AbstractDeleteQuery {
-    public DeleteSkillRelationQuery(FilterCondition condition) {
+public class DeleteSkillRelationByDeveloperIdQuery extends AbstractDeleteQuery {
+    public DeleteSkillRelationByDeveloperIdQuery(FilterCondition condition) {
         this .filterCondition = condition;
     }
 

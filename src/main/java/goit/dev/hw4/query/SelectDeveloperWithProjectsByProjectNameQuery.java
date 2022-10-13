@@ -2,8 +2,8 @@ package goit.dev.hw4.query;
 
 import goit.dev.hw4.query.condition.FilterCondition;
 
-public class FilterByProjectNameDeveloperWithProjectsQuery extends SelectDeveloperWithProjectsQuery {
-    public FilterByProjectNameDeveloperWithProjectsQuery(FilterCondition filterCondition) {
+public class SelectDeveloperWithProjectsByProjectNameQuery extends SelectDeveloperWithProjectsQuery {
+    public SelectDeveloperWithProjectsByProjectNameQuery(FilterCondition filterCondition) {
         this.filterCondition = filterCondition;
     }
 

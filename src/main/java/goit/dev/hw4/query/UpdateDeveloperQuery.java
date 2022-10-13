@@ -1,5 +1,6 @@
 package goit.dev.hw4.query;
 
+import goit.dev.hw4.query.common.AbstractUpdateQuery;
 import goit.dev.hw4.query.condition.FilterCondition;
 
 public class UpdateDeveloperQuery extends AbstractUpdateQuery {

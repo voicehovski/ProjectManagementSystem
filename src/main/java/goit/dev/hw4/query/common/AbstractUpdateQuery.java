@@ -1,13 +1,20 @@
-package goit.dev.hw4.query;
+package goit.dev.hw4.query.common;
 
 import goit.dev.hw4.query.condition.FilterCondition;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractDeleteQuery implements Query {
+public abstract class AbstractUpdateQuery implements Query {
     protected FilterCondition filterCondition;
+
+    public AbstractUpdateQuery(FilterCondition filterCondition) {
+        this.filterCondition = filterCondition;
+    }
 
     @Override
     public PreparedStatement createStatement(Connection connection) throws SQLException {

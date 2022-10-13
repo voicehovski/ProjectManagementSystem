@@ -34,12 +34,12 @@ public class Main {
         AgregateService<Integer> totalSallrayService = new TotalSalaryService(manager);
 
         // Delete developer
-        // new DeleteDeveloperController(manager).delete(new IdDto(4));
+        new DeleteDeveloperController(manager).delete(new IdDto(5));
 
         // Insert new developer
-        new InsertDeveloperController(manager).insert(
-            new DeveloperDto(0, "Sam", Date.valueOf("1992-01-01"), "Shire", "male", 3000)
-        );
+        //new InsertDeveloperController(manager).insert(
+        //    new DeveloperDto(0, "Sam", Date.valueOf("1992-01-01"), "Shire", "male", 3000)
+        //);
 
 
         //Select different developer sets

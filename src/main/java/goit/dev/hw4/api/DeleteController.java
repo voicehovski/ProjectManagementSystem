@@ -1,8 +1,7 @@
 package goit.dev.hw4.api;
 
-import goit.dev.hw4.query.Query;
+import goit.dev.hw4.query.common.Query;
 import goit.dev.hw4.service.DeleteService;
-import goit.dev.hw4.service.InsertService;
 
 public class DeleteController {
     DeleteService service;

@@ -1,13 +1,7 @@
 package goit.dev.hw4.api;
 
 import goit.dev.hw4.api.mapper.Mapper;
-import goit.dev.hw4.model.Developer;
-import goit.dev.hw4.model.dto.DeveloperDto;
-import goit.dev.hw4.model.dto.FilterByStringDto;
-import goit.dev.hw4.query.Query;
-import goit.dev.hw4.query.SelectDeveloperQuery;
-import goit.dev.hw4.query.SelectDevelopersBySkillTrendQuery;
-import goit.dev.hw4.query.condition.FilterCondition;
+import goit.dev.hw4.query.common.Query;
 import goit.dev.hw4.service.SelectService;
 
 import java.util.List;

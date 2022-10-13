@@ -1,6 +1,7 @@
 package goit.dev.hw4.query;
 
 import goit.dev.hw4.model.Developer;
+import goit.dev.hw4.query.common.AbstractQuery;
 import goit.dev.hw4.query.condition.FilterCondition;
 
 import java.sql.ResultSet;
@@ -8,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectDevelopersBySkillLevelQuery extends AbstractQuery<Developer> {
+public class SelectDeveloperBySkillLevelQuery extends AbstractQuery<Developer> {
     public static final String QUERY = "SELECT DISTINCT " +
             "developer.id, name, birth_date, birthplace, gender, salary " +
 
@@ -18,7 +19,7 @@ public class SelectDevelopersBySkillLevelQuery extends AbstractQuery<Developer> 
 
             "WHERE level = ?::skill_level";
 
-    public SelectDevelopersBySkillLevelQuery(FilterCondition filterCondition) {
+    public SelectDeveloperBySkillLevelQuery(FilterCondition filterCondition) {
         this.filterCondition = filterCondition;
     }
 

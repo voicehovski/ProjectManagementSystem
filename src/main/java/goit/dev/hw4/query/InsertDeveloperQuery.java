@@ -1,5 +1,6 @@
 package goit.dev.hw4.query;
 
+import goit.dev.hw4.query.common.AbstractInsertQuery;
 import goit.dev.hw4.query.condition.FilterCondition;
 
 public class InsertDeveloperQuery extends AbstractInsertQuery {

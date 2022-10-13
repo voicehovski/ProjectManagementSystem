@@ -3,7 +3,7 @@ package goit.dev.hw4.api;
 import goit.dev.hw4.model.Developer;
 import goit.dev.hw4.model.dto.DeveloperDto;
 import goit.dev.hw4.model.dto.FilterByStringDto;
-import goit.dev.hw4.query.SelectDevelopersBySkillTrendQuery;
+import goit.dev.hw4.query.SelectDeveloperBySkillTrendQuery;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class SelectDevelopersBySkillTrendContorller {
     }
     public List<DeveloperDto> select (FilterByStringDto dto) {
         return commonController.select(
-                new SelectDevelopersBySkillTrendQuery(statement -> statement.setString(1, dto.getValue()))
+                new SelectDeveloperBySkillTrendQuery(statement -> statement.setString(1, dto.getValue()))
         );
     }
 }

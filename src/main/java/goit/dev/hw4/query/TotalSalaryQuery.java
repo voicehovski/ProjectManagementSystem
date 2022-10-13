@@ -1,5 +1,6 @@
 package goit.dev.hw4.query;
 
+import goit.dev.hw4.query.common.AbstractQuery;
 import goit.dev.hw4.query.condition.FilterCondition;
 
 import java.sql.ResultSet;
