@@ -1,4 +1,4 @@
-package goit.dev.hw4.api;
+package goit.dev.hw4.api.controller.common;
 
 import goit.dev.hw4.query.common.Query;
 import goit.dev.hw4.service.DeleteService;

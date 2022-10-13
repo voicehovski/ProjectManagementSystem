@@ -1,5 +1,6 @@
-package goit.dev.hw4.api;
+package goit.dev.hw4.api.controller;
 
+import goit.dev.hw4.api.controller.common.AgregateController;
 import goit.dev.hw4.model.dto.IdDto;
 import goit.dev.hw4.model.dto.NumberDto;
 import goit.dev.hw4.query.TotalSalaryQuery;

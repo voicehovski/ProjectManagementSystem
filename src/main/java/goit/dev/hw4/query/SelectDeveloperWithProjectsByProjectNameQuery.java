@@ -4,7 +4,7 @@ import goit.dev.hw4.query.condition.FilterCondition;
 
 public class SelectDeveloperWithProjectsByProjectNameQuery extends SelectDeveloperWithProjectsQuery {
     public SelectDeveloperWithProjectsByProjectNameQuery(FilterCondition filterCondition) {
-        this.filterCondition = filterCondition;
+        super(filterCondition);
     }
 
     @Override

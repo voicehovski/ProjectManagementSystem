@@ -2,6 +2,7 @@ package goit.dev.hw4.query;
 
 import goit.dev.hw4.model.*;
 import goit.dev.hw4.query.common.AbstractQuery;
+import goit.dev.hw4.query.condition.FilterCondition;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +22,11 @@ public class SelectDeveloperWithProjectsQuery extends AbstractQuery<DeveloperWit
 
     public SelectDeveloperWithProjectsQuery() {
         super(statement -> {});
+    }
+
+    // Это нужно поскольку в подклассах с фильтрацией конструктор из AbstractQuery недоступен
+    public SelectDeveloperWithProjectsQuery(FilterCondition condition) {
+        super(condition);
     }
 
     @Override

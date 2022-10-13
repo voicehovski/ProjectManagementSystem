@@ -1,5 +1,6 @@
-package goit.dev.hw4.api;
+package goit.dev.hw4.api.controller;
 
+import goit.dev.hw4.api.controller.common.SelectController;
 import goit.dev.hw4.model.Developer;
 import goit.dev.hw4.model.dto.DeveloperDto;
 import goit.dev.hw4.model.dto.FilterByStringDto;

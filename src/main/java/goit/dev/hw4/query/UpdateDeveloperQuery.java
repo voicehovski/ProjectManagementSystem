@@ -13,7 +13,7 @@ public class UpdateDeveloperQuery extends AbstractUpdateQuery {
     public String getQuery() {
         return
                 "UPDATE developers " +
-                "SET name = ?, birth_date = ?, birthplace = ?, gender = ?, salary = ? " +
+                "SET name = ?, birth_date = ?, birthplace = ?, gender = ?::gender, salary = ? " +
                 "WHERE id = ?";
     }
 }

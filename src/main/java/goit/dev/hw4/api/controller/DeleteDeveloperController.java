@@ -1,4 +1,4 @@
-package goit.dev.hw4.api;
+package goit.dev.hw4.api.controller;
 
 import goit.dev.hw4.config.DatabaseManagerConnector;
 import goit.dev.hw4.model.dto.IdDto;
