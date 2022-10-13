@@ -10,6 +10,7 @@ import goit.dev.hw4.config.DatabaseManagerConnector;
 import goit.dev.hw4.config.PropertiesConfig;
 import goit.dev.hw4.model.Developer;
 import goit.dev.hw4.model.DeveloperWithProjects;
+import goit.dev.hw4.model.ProjectWithDevelopers;
 import goit.dev.hw4.model.dto.*;
 import goit.dev.hw4.service.*;
 import goit.dev.hw4.ui.*;
@@ -29,9 +30,12 @@ public class Main {
         ProjectMapper projectMapper = new ProjectMapper();  // Mapper<ProjectDto, Project>
         //<DeveloperWithProjectsDto, DeveloperWithProjects>
         DeveloperWithProjectsMapper developerWithProjectsMapper = new DeveloperWithProjectsMapper(developerMapper, projectMapper);
+        ProjectWithDevelopersMapper projectWithDevelopersMapper = new ProjectWithDevelopersMapper(developerMapper, projectMapper);
 
         SelectService<Developer> selectDeveloperService = new SelectEntityService(manager);
         SelectService<DeveloperWithProjects> selectDevelopersWithProjectsService
+                = new SelectEntityService(manager);
+        SelectService<ProjectWithDevelopers> selectProjectWithDevelopersService
                 = new SelectEntityService(manager);
         AgregateService<Integer> totalSallrayService = new TotalSalaryService(manager);
 
@@ -40,41 +44,11 @@ public class Main {
                 = new SelectController<>(selectDeveloperService, developerMapper);
         SelectController <DeveloperWithProjectsDto, DeveloperWithProjects> baseSelectDeveloperWithProjectsController
                 = new SelectController<>(selectDevelopersWithProjectsService, developerWithProjectsMapper);
+        SelectController <ProjectWithDevelopersDto, ProjectWithDevelopers> baseSelectProjectWithDevelopersController
+                = new SelectController<>(selectProjectWithDevelopersService, projectWithDevelopersMapper);
         AgregateController<NumberDto, Integer> baseAgregateNumberController
                 = new AgregateController<>(totalSallrayService,new NumberMapper());
 
-        // Delete developer
-        //new DeleteDeveloperController(manager).delete(new IdDto(5));
-
-        // Insert new developer
-        //new InsertDeveloperController(manager).insert(
-        //    new DeveloperDto("Sam", Date.valueOf("1992-01-01"), "Shire", "male", 3000)
-        //);
-
-        // Update developer
-        /*new UpdateDeveloperController(manager).update(
-                new DeveloperDto(1L, "Agronom", Date.valueOf("1991-08-24"), "Kyiv", "male", 4000));
-
-        //Select different developer sets
-        List<DeveloperDto> allDevelopers
-                = new SelectAllDevelopersController(baseSelectDeveloperController).select();
-        List<DeveloperDto> javaDevelopers
-                = new SelectDevelopersBySkillTrendContorller(baseSelectDeveloperController)
-                .select(new FilterByStringDto("java"));
-        List<DeveloperDto> middleDevelopers
-                = new SelectDevelopersBySkillLevelContorller(baseSelectDeveloperController)
-                .select(new FilterByStringDto("middle"));*/
-
-
-        // Select all developer with projects set
-        /*List<DeveloperWithProjectsDto> allDevelopersWithProjects
-                = new SelectDeveloperWithProjectsController(baseSelectDeveloperWithProjectsController)
-                .select();*/
-
-        // Select total salary in particular project
-        /*NumberDto totalSallary
-                = new AgregateTotalSalaryByProjectController(baseAgregateNumberController)
-                .select(new IdDto(1L));*/
 
         View view = new DefaultView();
         Command[] commands = {
@@ -106,6 +80,10 @@ public class Main {
                 ),
                 new RemoveDeveloperCommand(
                         new DeleteDeveloperController(manager),
+                        view
+                ),
+                new GetFormattedProjectWithDevelopersCommand(
+                        new SelectProjectWithDevelopersController(baseSelectProjectWithDevelopersController),
                         view
                 )
         };
