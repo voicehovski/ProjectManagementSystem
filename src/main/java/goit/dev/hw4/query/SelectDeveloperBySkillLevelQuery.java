@@ -19,8 +19,8 @@ public class SelectDeveloperBySkillLevelQuery extends AbstractQuery<Developer> {
 
             "WHERE level = ?::skill_level";
 
-    public SelectDeveloperBySkillLevelQuery(FilterCondition filterCondition) {
-        this.filterCondition = filterCondition;
+    public SelectDeveloperBySkillLevelQuery(FilterCondition condition) {
+        super(condition);
     }
 
     @Override

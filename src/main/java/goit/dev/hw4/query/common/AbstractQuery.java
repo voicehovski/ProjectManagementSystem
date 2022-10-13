@@ -7,7 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public abstract class AbstractQuery<R> implements Query {
-    protected FilterCondition filterCondition;
+    private FilterCondition filterCondition;
+
+    public AbstractQuery(FilterCondition filterCondition) {
+        this.filterCondition = filterCondition;
+    }
 
     @Override
     public PreparedStatement createStatement(Connection connection) throws SQLException {

@@ -5,7 +5,7 @@ import goit.dev.hw4.query.condition.FilterCondition;
 
 public class DeleteDeveloperByIdQuery extends AbstractDeleteQuery {
     public DeleteDeveloperByIdQuery(FilterCondition condition) {
-        this .filterCondition = condition;
+        super(condition);
     }
 
     @Override

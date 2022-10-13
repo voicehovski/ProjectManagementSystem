@@ -14,7 +14,7 @@ public class SelectDeveloperQuery extends AbstractQuery<Developer> {
             "FROM developers";
 
     public SelectDeveloperQuery() {
-        this.filterCondition = statement -> {};
+        super(statement -> {});
     }
 
     @Override

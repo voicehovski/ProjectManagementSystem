@@ -6,7 +6,7 @@ import goit.dev.hw4.query.condition.FilterCondition;
 public class InsertDeveloperQuery extends AbstractInsertQuery {
 
     public InsertDeveloperQuery(FilterCondition condition) {
-        this .filterCondition = condition;
+        super(condition);
     }
 
     @Override

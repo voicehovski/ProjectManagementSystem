@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractUpdateQuery implements Query {
-    protected FilterCondition filterCondition;
+    private FilterCondition filterCondition;
 
     public AbstractUpdateQuery(FilterCondition filterCondition) {
         this.filterCondition = filterCondition;

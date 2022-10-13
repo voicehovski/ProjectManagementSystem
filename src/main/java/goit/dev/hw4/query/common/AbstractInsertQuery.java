@@ -7,7 +7,11 @@ import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractInsertQuery implements Query {
-    protected FilterCondition filterCondition;
+    private FilterCondition filterCondition;
+
+    public AbstractInsertQuery(FilterCondition filterCondition) {
+        this.filterCondition = filterCondition;
+    }
 
     @Override
     public PreparedStatement createStatement(Connection connection) throws SQLException {

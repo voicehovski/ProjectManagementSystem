@@ -19,8 +19,8 @@ public class SelectDeveloperBySkillTrendQuery extends AbstractQuery<Developer> {
 
             "WHERE trend = ?";
 
-    public SelectDeveloperBySkillTrendQuery(FilterCondition filterCondition) {
-        this.filterCondition = filterCondition;
+    public SelectDeveloperBySkillTrendQuery(FilterCondition condition) {
+        super(condition);
     }
 
     @Override

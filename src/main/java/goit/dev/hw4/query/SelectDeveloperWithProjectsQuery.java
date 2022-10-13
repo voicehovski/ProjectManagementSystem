@@ -20,7 +20,7 @@ public class SelectDeveloperWithProjectsQuery extends AbstractQuery<DeveloperWit
             "INNER JOIN projects AS project ON d2p.project_id = project.id";
 
     public SelectDeveloperWithProjectsQuery() {
-        this .filterCondition = statement -> {};
+        super(statement -> {});
     }
 
     @Override

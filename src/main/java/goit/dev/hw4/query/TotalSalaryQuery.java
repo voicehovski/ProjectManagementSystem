@@ -11,7 +11,7 @@ import java.util.List;
 public class TotalSalaryQuery extends AbstractQuery<Integer> {
 
     public TotalSalaryQuery(FilterCondition condition) {
-        this .filterCondition = condition;
+        super(condition);
     }
 
     @Override
