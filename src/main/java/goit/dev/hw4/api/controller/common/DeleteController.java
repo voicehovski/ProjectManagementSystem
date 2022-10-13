@@ -3,6 +3,7 @@ package goit.dev.hw4.api.controller.common;
 import goit.dev.hw4.query.common.Query;
 import goit.dev.hw4.service.DeleteService;
 
+// todo Нужен ли этот контроллер? insert?
 public class DeleteController {
     DeleteService service;
 

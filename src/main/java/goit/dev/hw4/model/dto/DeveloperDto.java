@@ -19,6 +19,10 @@ public class DeveloperDto {
         this.salary = salary;
     }
 
+    public DeveloperDto(String name, Date birthDate, String birthPlace, String gender, int salary) {
+        this(-1, name, birthDate, birthPlace, gender, salary);
+    }
+
     public long getId() {
         return id;
     }
@@ -41,5 +45,10 @@ public class DeveloperDto {
 
     public int getSalary() {
         return salary;
+    }
+
+    @Override
+    public String toString() {
+        return String .format("[%d] %s(%s) from %s, birth %s, salary %d", id == -1 ? "": id, name, gender, birthPlace, birthDate, salary  );
     }
 }

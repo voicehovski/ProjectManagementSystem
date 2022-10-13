@@ -12,6 +12,7 @@ import goit.dev.hw4.model.Developer;
 import goit.dev.hw4.model.DeveloperWithProjects;
 import goit.dev.hw4.model.dto.*;
 import goit.dev.hw4.service.*;
+import goit.dev.hw4.ui.*;
 
 import java.sql.Date;
 import java.util.List;
@@ -34,43 +35,89 @@ public class Main {
                 = new SelectEntityService(manager);
         AgregateService<Integer> totalSallrayService = new TotalSalaryService(manager);
 
+        // Base controllers
+        SelectController<DeveloperDto, Developer> baseSelectDeveloperController
+                = new SelectController<>(selectDeveloperService, developerMapper);
+        SelectController <DeveloperWithProjectsDto, DeveloperWithProjects> baseSelectDeveloperWithProjectsController
+                = new SelectController<>(selectDevelopersWithProjectsService, developerWithProjectsMapper);
+        AgregateController<NumberDto, Integer> baseAgregateNumberController
+                = new AgregateController<>(totalSallrayService,new NumberMapper());
+
         // Delete developer
         //new DeleteDeveloperController(manager).delete(new IdDto(5));
 
         // Insert new developer
         //new InsertDeveloperController(manager).insert(
-        //    new DeveloperDto(0, "Sam", Date.valueOf("1992-01-01"), "Shire", "male", 3000)
+        //    new DeveloperDto("Sam", Date.valueOf("1992-01-01"), "Shire", "male", 3000)
         //);
 
         // Update developer
-        new UpdateDeveloperController(manager).update(
+        /*new UpdateDeveloperController(manager).update(
                 new DeveloperDto(1L, "Agronom", Date.valueOf("1991-08-24"), "Kyiv", "male", 4000));
 
         //Select different developer sets
-        SelectController<DeveloperDto, Developer> selectDeveloperController
-                = new SelectController<>(selectDeveloperService, developerMapper);
         List<DeveloperDto> allDevelopers
-                = new SelectAllDevelopersController(selectDeveloperController).select();
+                = new SelectAllDevelopersController(baseSelectDeveloperController).select();
         List<DeveloperDto> javaDevelopers
-                = new SelectDevelopersBySkillTrendContorller(selectDeveloperController)
+                = new SelectDevelopersBySkillTrendContorller(baseSelectDeveloperController)
                 .select(new FilterByStringDto("java"));
         List<DeveloperDto> middleDevelopers
-                = new SelectDevelopersBySkillLevelContorller(selectDeveloperController)
-                .select(new FilterByStringDto("middle"));
+                = new SelectDevelopersBySkillLevelContorller(baseSelectDeveloperController)
+                .select(new FilterByStringDto("middle"));*/
 
 
         // Select all developer with projects set
-        SelectController <DeveloperWithProjectsDto, DeveloperWithProjects> selectDeveloperWithProjectsController
-                = new SelectController<>(selectDevelopersWithProjectsService, developerWithProjectsMapper);
-        List<DeveloperWithProjectsDto> allDevelopersWithProjects
-                = new SelectDeveloperWithProjectsController(selectDeveloperWithProjectsController)
-                .select();
+        /*List<DeveloperWithProjectsDto> allDevelopersWithProjects
+                = new SelectDeveloperWithProjectsController(baseSelectDeveloperWithProjectsController)
+                .select();*/
 
         // Select total salary in particular project
-        AgregateController<NumberDto, Integer> agregateTotalSalaryByProjectController
-                = new AgregateController<>(totalSallrayService,new NumberMapper());
-        NumberDto totalSallary
-                = new AgregateTotalSalaryByProjectController(agregateTotalSalaryByProjectController)
-                .select(new IdDto(1L));
+        /*NumberDto totalSallary
+                = new AgregateTotalSalaryByProjectController(baseAgregateNumberController)
+                .select(new IdDto(1L));*/
+
+        View view = new DefaultView();
+        Command[] commands = {
+                new HelpCommand(),
+                new ExitCommand(),
+                new GetTotalSalaryByProjectCommand(
+                        new AgregateTotalSalaryByProjectController(baseAgregateNumberController),
+                        view
+                ),
+                new GetDevelopersBySkillTrendCommand(
+                        new SelectDevelopersBySkillTrendContorller(baseSelectDeveloperController),
+                        view
+                ),
+                new GetDevelopersBySkillLevelCommand(
+                        new SelectDevelopersBySkillLevelContorller(baseSelectDeveloperController),
+                        view
+                ),
+                new GetAllDevelopersCommand(
+                        new SelectAllDevelopersController(baseSelectDeveloperController),
+                        view
+                ),
+                new CreateDeveloperCommand(
+                        new InsertDeveloperController(manager),
+                        view
+                ),
+                new EditDeveloperCommand(
+                        new UpdateDeveloperController(manager),
+                        view
+                ),
+                new RemoveDeveloperCommand(
+                        new DeleteDeveloperController(manager),
+                        view
+                )
+        };
+
+        while (true) {
+            System.out.println("Enter a command. Type 'help' if in doubt.");
+            String input = view .read();
+            for (Command command : commands) {
+                if (command.canExecute(input)){
+                    command.execute();
+                }
+            }
+        }
     }
 }
