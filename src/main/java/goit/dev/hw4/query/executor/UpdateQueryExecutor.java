@@ -20,6 +20,7 @@ public class UpdateQueryExecutor {
             PreparedStatement statement = query.createStatement(connection);
             statement.executeUpdate();
         } catch (SQLException throwables) {
+            //throwables.printStackTrace();
             throw new RuntimeException("");
         }
 

@@ -1,18 +1,17 @@
 package goit.dev.hw4.ui.commands;
 
-import goit.dev.hw4.api.controller.DeleteDeveloperController;
+import goit.dev.hw4.api.controller.DeleteSkillController;
 import goit.dev.hw4.model.dto.IdDto;
 import goit.dev.hw4.ui.View;
 
-public class RemoveDeveloperCommand implements Command {
+public class RemoveSkillCommand implements Command {
+    public static final String NAME = "remove skill";
+    public static final String DESC = "Remove skill";
 
-    public static final String NAME = "remove developer";
-    public static final String DESC = "Remove developer with all relations";
-
-    private DeleteDeveloperController controller;
+    private DeleteSkillController controller;
     private View view;
 
-    public RemoveDeveloperCommand(DeleteDeveloperController controller, View view) {
+    public RemoveSkillCommand(DeleteSkillController controller, View view) {
         this.controller = controller;
         this.view = view;
     }
@@ -24,10 +23,9 @@ public class RemoveDeveloperCommand implements Command {
 
     @Override
     public void execute() {
-        view.write("Enter developer id");
+        view.write("Enter skill id");
         String id = view.read();
         controller.delete(new IdDto(Long.parseLong(id)));
-        // todo Что-то нужно возвращать для контроля? Также в других Remove?
     }
 
     @Override

@@ -1,20 +1,19 @@
 package goit.dev.hw4.ui.commands;
 
-import goit.dev.hw4.api.controller.SelectDeveloperController;
-import goit.dev.hw4.model.dto.DeveloperDto;
+import goit.dev.hw4.api.controller.SelectSkillController;
+import goit.dev.hw4.model.dto.SkillDto;
 import goit.dev.hw4.ui.View;
 
 import java.util.List;
 
-public class GetAllDevelopersCommand implements Command {
+public class GetAllSkillsCommand implements Command {
+    public static final String NAME = "skills";
+    public static final String DESC = "Show all skills";
 
-    public static final String NAME = "developers";
-    public static final String DESC = "Show all developers";
-
-    private SelectDeveloperController controller;
+    private SelectSkillController controller;
     private View view;
 
-    public GetAllDevelopersCommand(SelectDeveloperController controller, View view) {
+    public GetAllSkillsCommand(SelectSkillController controller, View view) {
         this.controller = controller;
         this.view = view;
     }
@@ -26,14 +25,14 @@ public class GetAllDevelopersCommand implements Command {
 
     @Override
     public void execute() {
-        List<DeveloperDto> developers = controller.select();
+        List<SkillDto> skills = controller.select();
 
-        if (developers.isEmpty()){
-            view.write("No developers");
+        if (skills.isEmpty()){
+            view.write("No skills");
             return;
         }
 
-        developers.stream()
+        skills.stream()
                 .map(dto -> dto.toString())
                 .forEach(view::write);
     }

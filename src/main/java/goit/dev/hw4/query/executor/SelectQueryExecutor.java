@@ -20,7 +20,7 @@ public class SelectQueryExecutor<R> {
             PreparedStatement statement = query.createStatement(connection);
             return query.createEntity(statement.executeQuery());
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            //throwables.printStackTrace();
             throw new RuntimeException("");
         }
     }

@@ -70,7 +70,7 @@ public class Main {
                         view
                 ),
                 new GetAllDevelopersCommand(
-                        new SelectAllDevelopersController(baseSelectDeveloperController),
+                        new SelectDeveloperController(baseSelectDeveloperController),
                         view
                 ),
                 new CreateDeveloperCommand(
@@ -92,6 +92,24 @@ public class Main {
                 new GetDeveloperByProjectCommand(
                         new SelectDeveloperByProjectController(baseSelectDeveloperController),
                         view
+                ),
+                new GetAllSkillsCommand(
+                        new SelectSkillController(manager),
+                        view
+                ),
+                new EditSkillCommand(
+                        new UpdateSkillController(manager),
+                        new SelectSkillController(manager),
+                        view
+                ),
+                new RemoveSkillCommand(
+                        new DeleteSkillController(manager),
+                        view
+                ),
+                new CreateSkillCommand(
+                        new InsertSkillController(manager),
+                        new SelectSkillController(manager),
+                        view
                 )
         };
         helpCommand.setCommands(commands);
@@ -102,7 +120,12 @@ public class Main {
             String input = view .read();
             for (Command command : commands) {
                 if (command.canExecute(input)){
-                    command.execute();
+                    try {
+                        command.execute();
+                    } catch (Exception e) {
+                        System.out.println("Something went wrong. Try again.");
+                        System.out.println(e.getMessage());
+                    }
                 }
             }
         }

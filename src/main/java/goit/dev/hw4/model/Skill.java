@@ -31,4 +31,12 @@ public class Skill implements Entity {
     public long getId() {
         return id;
     }
+
+    public String getTrend() {
+        return trend;
+    }
+
+    public String getLevel() {
+        return level;
+    }
 }

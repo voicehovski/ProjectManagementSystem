@@ -14,8 +14,8 @@ public class InsertDeveloperController {
         this.connector = connector;
     }
 
-    public void insert (DeveloperDto developerDto) {
-        new InsertEntityService(connector).insert(
+    public long insert (DeveloperDto developerDto) {
+        return new InsertEntityService(connector).insert(
             new InsertDeveloperQuery(statement -> {
                 statement.setString(1,developerDto.getName());
                 statement.setDate(2, developerDto.getBirthDate());
