@@ -1,7 +1,8 @@
-package goit.dev.hw4.ui;
+package goit.dev.hw4.ui.commands;
 
 public class ExitCommand implements Command {
     public static final String NAME = "exit";
+    public static final String DESC = "Exit application";
 
     @Override
     public boolean canExecute(String command) {
@@ -10,6 +11,16 @@ public class ExitCommand implements Command {
 
     @Override
     public void execute() {
-        //System.exit(0);
+        System.exit(0);
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
+    }
+
+    @Override
+    public String getDesc() {
+        return DESC;
     }
 }

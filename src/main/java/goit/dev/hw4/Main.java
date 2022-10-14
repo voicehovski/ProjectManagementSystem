@@ -14,9 +14,8 @@ import goit.dev.hw4.model.ProjectWithDevelopers;
 import goit.dev.hw4.model.dto.*;
 import goit.dev.hw4.service.*;
 import goit.dev.hw4.ui.*;
+import goit.dev.hw4.ui.commands.*;
 
-import java.sql.Date;
-import java.util.List;
 import java.util.Properties;
 
 public class Main {
@@ -51,8 +50,9 @@ public class Main {
 
 
         View view = new DefaultView();
+        HelpCommand helpCommand = new HelpCommand(view);
         Command[] commands = {
-                new HelpCommand(),
+                helpCommand,
                 new ExitCommand(),
                 new GetTotalSalaryByProjectCommand(
                         new AgregateTotalSalaryByProjectController(baseAgregateNumberController),
@@ -85,8 +85,13 @@ public class Main {
                 new GetFormattedProjectWithDevelopersCommand(
                         new SelectProjectWithDevelopersController(baseSelectProjectWithDevelopersController),
                         view
+                ),
+                new GetDeveloperByProjectCommand(
+                        new SelectDeveloperByProjectController(baseSelectDeveloperController),
+                        view
                 )
         };
+        helpCommand.setCommands(commands);
 
         while (true) {
             System.out.println("Enter a command. Type 'help' if in doubt.");

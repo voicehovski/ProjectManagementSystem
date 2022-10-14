@@ -1,16 +1,16 @@
-package goit.dev.hw4.ui;
+package goit.dev.hw4.ui.commands;
 
 
 import goit.dev.hw4.api.controller.SelectDevelopersBySkillTrendContorller;
 import goit.dev.hw4.model.dto.DeveloperDto;
 import goit.dev.hw4.model.dto.FilterByStringDto;
-import goit.dev.hw4.model.dto.IdDto;
-import goit.dev.hw4.model.dto.NumberDto;
+import goit.dev.hw4.ui.View;
 
 import java.util.List;
 
 public class GetDevelopersBySkillTrendCommand implements Command{
-    public static final String NAME = "skill trend";
+    public static final String NAME = "developers(st)";
+    public static final String DESC = "Show developers with particular skill trend";
 
     private SelectDevelopersBySkillTrendContorller controller;
     private View view;
@@ -39,5 +39,15 @@ public class GetDevelopersBySkillTrendCommand implements Command{
         developers.stream()
                 .map(dto -> dto.toString())
                 .forEach(view::write);
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
+    }
+
+    @Override
+    public String getDesc() {
+        return DESC;
     }
 }

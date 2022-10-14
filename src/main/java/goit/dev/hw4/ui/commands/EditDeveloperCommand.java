@@ -1,19 +1,21 @@
-package goit.dev.hw4.ui;
+package goit.dev.hw4.ui.commands;
 
-import goit.dev.hw4.api.controller.InsertDeveloperController;
 import goit.dev.hw4.api.controller.UpdateDeveloperController;
 import goit.dev.hw4.model.dto.DeveloperDto;
+import goit.dev.hw4.ui.View;
 
 import java.sql.Date;
 
-public class CreateDeveloperCommand implements Command {
 
-    public static final String NAME = "create developer";
+public class EditDeveloperCommand implements Command {
 
-    private InsertDeveloperController controller;
+    public static final String NAME = "edit developer";
+    public static final String DESC = "Edit existed developer";
+
+    private UpdateDeveloperController controller;
     private View view;
 
-    public CreateDeveloperCommand(InsertDeveloperController controller, View view) {
+    public EditDeveloperCommand(UpdateDeveloperController controller, View view) {
         this.controller = controller;
         this.view = view;
     }
@@ -25,6 +27,8 @@ public class CreateDeveloperCommand implements Command {
 
     @Override
     public void execute() {
+        view.write("Enter id");
+        long id = Long.parseLong(view.read());
         view.write("Enter name");
         String name = view.read();
         view.write("Enter birth date");
@@ -36,6 +40,16 @@ public class CreateDeveloperCommand implements Command {
         view.write("Enter salary");
         int salary = Integer.parseInt(view.read());
 
-        controller.insert(new DeveloperDto(name, birthDate, birthplace, gender, salary));
+        controller.update(new DeveloperDto(id, name, birthDate, birthplace, gender, salary));
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
+    }
+
+    @Override
+    public String getDesc() {
+        return DESC;
     }
 }

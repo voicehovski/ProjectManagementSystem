@@ -1,11 +1,13 @@
-package goit.dev.hw4.ui;
+package goit.dev.hw4.ui.commands;
 
 import goit.dev.hw4.api.controller.DeleteDeveloperController;
 import goit.dev.hw4.model.dto.IdDto;
+import goit.dev.hw4.ui.View;
 
 public class RemoveDeveloperCommand implements Command {
 
     public static final String NAME = "remove developer";
+    public static final String DESC = "Remove developer with all relations";
 
     private DeleteDeveloperController controller;
     private View view;
@@ -26,5 +28,15 @@ public class RemoveDeveloperCommand implements Command {
         String id = view.read();
         controller.delete(new IdDto(Long.parseLong(id)));
         // todo Что-то нужно возвращать для контроля?
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
+    }
+
+    @Override
+    public String getDesc() {
+        return DESC;
     }
 }

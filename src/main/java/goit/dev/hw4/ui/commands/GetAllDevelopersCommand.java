@@ -1,15 +1,15 @@
-package goit.dev.hw4.ui;
+package goit.dev.hw4.ui.commands;
 
-import goit.dev.hw4.api.controller.AgregateTotalSalaryByProjectController;
 import goit.dev.hw4.api.controller.SelectAllDevelopersController;
 import goit.dev.hw4.model.dto.DeveloperDto;
-import goit.dev.hw4.model.dto.FilterByStringDto;
+import goit.dev.hw4.ui.View;
 
 import java.util.List;
 
 public class GetAllDevelopersCommand implements Command {
 
-    public static final String NAME = "all developers";
+    public static final String NAME = "developers";
+    public static final String DESC = "Show all developers";
 
     private SelectAllDevelopersController controller;
     private View view;
@@ -36,5 +36,15 @@ public class GetAllDevelopersCommand implements Command {
         developers.stream()
                 .map(dto -> dto.toString())
                 .forEach(view::write);
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
+    }
+
+    @Override
+    public String getDesc() {
+        return DESC;
     }
 }
