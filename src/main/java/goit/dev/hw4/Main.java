@@ -10,6 +10,7 @@ import goit.dev.hw4.config.DatabaseManagerConnector;
 import goit.dev.hw4.config.PropertiesConfig;
 import goit.dev.hw4.model.Developer;
 import goit.dev.hw4.model.DeveloperWithProjects;
+import goit.dev.hw4.model.Project;
 import goit.dev.hw4.model.ProjectWithDevelopers;
 import goit.dev.hw4.model.dto.*;
 import goit.dev.hw4.service.*;
@@ -25,20 +26,21 @@ public class Main {
         Properties dbConnectionProperties = new PropertiesConfig().load("application.properties");
         DatabaseManagerConnector manager = new DatabaseManagerConnector(dbConnectionProperties, dbUsername, dbPassword);
 
-        DeveloperMapper developerMapper = new DeveloperMapper();    // Mapper<DeveloperDto, Developer>
-        ProjectMapper projectMapper = new ProjectMapper();  // Mapper<ProjectDto, Project>
-        //<DeveloperWithProjectsDto, DeveloperWithProjects>
-        DeveloperWithProjectsMapper developerWithProjectsMapper = new DeveloperWithProjectsMapper(developerMapper, projectMapper);
-        ProjectWithDevelopersMapper projectWithDevelopersMapper = new ProjectWithDevelopersMapper(developerMapper, projectMapper);
+        // Мапперы для общих севисов
+        Mapper<DeveloperDto, Developer> developerMapper = new DeveloperMapper();
+        Mapper<ProjectDto, Project> projectMapper = new ProjectMapper();
+        Mapper<DeveloperWithProjectsDto, DeveloperWithProjects> developerWithProjectsMapper = new DeveloperWithProjectsMapper(developerMapper, projectMapper);
+        Mapper<ProjectWithDevelopersDto, ProjectWithDevelopers> projectWithDevelopersMapper = new ProjectWithDevelopersMapper(developerMapper, projectMapper);
 
-        SelectService<Developer> selectDeveloperService = new SelectEntityService(manager);
+        // Сервисы для общих контроллеров
+        SelectService<Developer> selectDeveloperService = new SelectEntityService<>(manager);
         SelectService<DeveloperWithProjects> selectDevelopersWithProjectsService
-                = new SelectEntityService(manager);
+                = new SelectEntityService<>(manager);
         SelectService<ProjectWithDevelopers> selectProjectWithDevelopersService
-                = new SelectEntityService(manager);
+                = new SelectEntityService<>(manager);
         AgregateService<Integer> totalSallrayService = new TotalSalaryService(manager);
 
-        // Base controllers
+        // Общие контроллеры. Содержат общую логику для select* и agregate* В принципе можно обойтись без них
         SelectController<DeveloperDto, Developer> baseSelectDeveloperController
                 = new SelectController<>(selectDeveloperService, developerMapper);
         SelectController <DeveloperWithProjectsDto, DeveloperWithProjects> baseSelectDeveloperWithProjectsController
@@ -49,6 +51,7 @@ public class Main {
                 = new AgregateController<>(totalSallrayService,new NumberMapper());
 
 
+        // Init UI
         View view = new DefaultView();
         HelpCommand helpCommand = new HelpCommand(view);
         Command[] commands = {
@@ -93,8 +96,9 @@ public class Main {
         };
         helpCommand.setCommands(commands);
 
+        // Start UI loop
         while (true) {
-            System.out.println("Enter a command. Type 'help' if in doubt.");
+            System.out.println("\nEnter a command. Type 'help' if in doubt.");
             String input = view .read();
             for (Command command : commands) {
                 if (command.canExecute(input)){

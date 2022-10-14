@@ -1,16 +1,18 @@
 package goit.dev.hw4.api.mapper;
 
+import goit.dev.hw4.model.Developer;
 import goit.dev.hw4.model.Project;
 import goit.dev.hw4.model.ProjectWithDevelopers;
+import goit.dev.hw4.model.dto.DeveloperDto;
 import goit.dev.hw4.model.dto.ProjectDto;
 import goit.dev.hw4.model.dto.ProjectWithDevelopersDto;
 
 public class ProjectWithDevelopersMapper implements Mapper<ProjectWithDevelopersDto, ProjectWithDevelopers> {
 
-    private final DeveloperMapper developerMapper;
-    private final ProjectMapper projectMapper;
+    private final Mapper<DeveloperDto, Developer> developerMapper;
+    private final Mapper<ProjectDto, Project> projectMapper;
 
-    public ProjectWithDevelopersMapper(DeveloperMapper developerMapper, ProjectMapper projectMapper) {
+    public ProjectWithDevelopersMapper(Mapper<DeveloperDto, Developer> developerMapper, Mapper<ProjectDto, Project> projectMapper) {
         this.developerMapper = developerMapper;
         this.projectMapper = projectMapper;
     }
