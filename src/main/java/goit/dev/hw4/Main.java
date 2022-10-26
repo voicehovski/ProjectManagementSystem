@@ -110,6 +110,18 @@ public class Main {
                         new InsertSkillController(manager),
                         new SelectSkillController(manager),
                         view
+                ),
+                new GetAllProjectsCommand(
+                        new SelectProjectController(manager),
+                        view
+                ),
+                new GetProjectsByNameCommand(
+                        new SelectProjectByNameController(manager),
+                        view
+                ),
+                new CreateProjectCommand(
+                        new InsertProjectController(manager),
+                        view
                 )
         };
         helpCommand.setCommands(commands);
@@ -123,8 +135,8 @@ public class Main {
                     try {
                         command.execute();
                     } catch (Exception e) {
+                        e.printStackTrace();
                         System.out.println("Something went wrong. Try again.");
-                        System.out.println(e.getMessage());
                     }
                 }
             }

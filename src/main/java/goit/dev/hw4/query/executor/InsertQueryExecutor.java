@@ -21,7 +21,7 @@ public class InsertQueryExecutor {
             statement.executeUpdate();
             return fetchCreatedId(statement.getGeneratedKeys());
         } catch (SQLException throwables) {
-            throw new RuntimeException("");
+            throw new RuntimeException(throwables);
         }
 
     }
