@@ -11,8 +11,8 @@ public class InsertSkillQuery extends AbstractInsertQuery {
 
     @Override
     public String getQuery() {
-        return "INSERT INTO skills" +
-                "(trend, level)" +
+        return "INSERT INTO skills " +
+                "(trend, level) " +
                 "VALUES (?,?::skill_level)";
     }
 }

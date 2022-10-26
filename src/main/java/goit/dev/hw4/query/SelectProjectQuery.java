@@ -2,6 +2,7 @@ package goit.dev.hw4.query;
 
 import goit.dev.hw4.model.Project;
 import goit.dev.hw4.query.common.AbstractQuery;
+import goit.dev.hw4.query.condition.FilterCondition;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +14,8 @@ public class SelectProjectQuery extends AbstractQuery<Project> {
     public SelectProjectQuery() {
         super(statement -> {});
     }
+
+    public SelectProjectQuery(FilterCondition condition) {super(condition);}
 
     @Override
     public String getQuery() {

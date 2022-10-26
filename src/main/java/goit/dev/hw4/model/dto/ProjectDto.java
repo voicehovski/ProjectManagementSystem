@@ -19,6 +19,10 @@ public class ProjectDto {
         this.cost = cost;
     }
 
+    public ProjectDto(String name, Date start, long companyId, long customerId, int cost) {
+        this(-1, name, start, companyId, customerId, cost);
+    }
+
     public long getId() {
         return id;
     }
@@ -41,5 +45,10 @@ public class ProjectDto {
 
     public int getCost() {
         return cost;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("[%1$d] %2$s starts %3$tF (cost $%4$d)", id, name, start, cost);
     }
 }
