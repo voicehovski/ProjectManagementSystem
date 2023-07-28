@@ -2,6 +2,7 @@ package goit.dev.hw4.query;
 
 import goit.dev.hw4.model.Developer;
 import goit.dev.hw4.query.common.AbstractQuery;
+import goit.dev.hw4.query.condition.FilterCondition;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,6 +17,8 @@ public class SelectDeveloperQuery extends AbstractQuery<Developer> {
     public SelectDeveloperQuery() {
         super(statement -> {});
     }
+
+    public SelectDeveloperQuery ( FilterCondition condition ) { super ( condition ); }
 
     @Override
     public String getQuery() {

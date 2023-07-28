@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectDeveloperBySkillLevelQuery extends AbstractQuery<Developer> {
+public class SelectDeveloperBySkillLevelQuery extends SelectDeveloperQuery {
     public static final String QUERY = "SELECT DISTINCT " +
             "developer.id, name, birth_date, birthplace, gender, salary " +
 
@@ -26,14 +26,6 @@ public class SelectDeveloperBySkillLevelQuery extends AbstractQuery<Developer> {
     @Override
     public String getQuery() {
         return QUERY;
-    }
-
-    public List<Developer> createEntity (ResultSet rs) throws SQLException {
-        List<Developer> developerEntityList = new ArrayList<>();    // Задать размер?
-        while (rs.next()){
-            developerEntityList.add( Developer.createFromResultSet(rs) );
-        }
-        return developerEntityList;
     }
 }
 

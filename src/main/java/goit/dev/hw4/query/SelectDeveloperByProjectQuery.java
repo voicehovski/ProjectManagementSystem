@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectDeveloperByProjectQuery extends AbstractQuery<Developer> {
+public class SelectDeveloperByProjectQuery extends SelectDeveloperQuery {
     public SelectDeveloperByProjectQuery(FilterCondition filterCondition) {
         super(filterCondition);
     }
@@ -26,14 +26,5 @@ public class SelectDeveloperByProjectQuery extends AbstractQuery<Developer> {
                 "INNER JOIN projects AS project ON d2p.project_id = project.id " +
 
                 "WHERE project.id = ?";
-    }
-
-    @Override
-    public List<Developer> createEntity(ResultSet rs) throws SQLException {
-        List<Developer> developerEntityList = new ArrayList<>();    // Задать размер?
-        while (rs.next()){
-            developerEntityList.add( Developer.createFromResultSet(rs) );
-        }
-        return developerEntityList;
     }
 }
