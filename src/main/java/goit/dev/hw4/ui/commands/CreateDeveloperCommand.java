@@ -37,7 +37,8 @@ public class CreateDeveloperCommand implements Command {
         view.write("Enter salary");
         int salary = Integer.parseInt(view.read());
 
-        controller.insert(new DeveloperDto(name, birthDate, birthplace, gender, salary));
+        long id = controller.insert(new DeveloperDto(name, birthDate, birthplace, gender, salary));
+        view .write ( "New developer id: " + id );
     }
 
     @Override

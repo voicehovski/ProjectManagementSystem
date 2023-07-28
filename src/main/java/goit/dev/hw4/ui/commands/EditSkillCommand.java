@@ -32,7 +32,8 @@ public class EditSkillCommand implements Command {
     public void execute() {
         List<SkillDto> existedSkills = selectController.select();
         String validLevels = existedSkills.stream()
-                .map(skillDto -> skillDto.getLevel())
+                //.map(skillDto -> skillDto.getLevel())
+                .map(SkillDto::getLevel)
                 .distinct()
                 .collect(Collectors.joining(", "));
 
@@ -43,7 +44,8 @@ public class EditSkillCommand implements Command {
         view.write("Enter level of: " + validLevels);
         String level = view.read();
 
-        controller.update(new SkillDto(id, trend, level));
+        int affected = controller.update(new SkillDto(id, trend, level));
+        view .write ( "Edited skills: " + affected );
     }
 
     @Override

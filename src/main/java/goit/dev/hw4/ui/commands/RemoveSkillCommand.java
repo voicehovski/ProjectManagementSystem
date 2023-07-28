@@ -25,7 +25,8 @@ public class RemoveSkillCommand implements Command {
     public void execute() {
         view.write("Enter skill id");
         String id = view.read();
-        controller.delete(new IdDto(Long.parseLong(id)));
+        int affected = controller.delete(new IdDto(Long.parseLong(id)));
+        view .write ( "Removed skills: " + affected );
     }
 
     @Override

@@ -12,8 +12,8 @@ public class UpdateDeveloperController {
         this.connector = connector;
     }
 
-    public void update (DeveloperDto developerDto) {
-        new UpdateEntityService(connector).update(new UpdateDeveloperQuery(
+    public int update (DeveloperDto developerDto) {
+        return new UpdateEntityService(connector).update(new UpdateDeveloperQuery(
             statement -> {
                 statement.setString(1, developerDto.getName());
                 statement.setDate(2, developerDto.getBirthDate());

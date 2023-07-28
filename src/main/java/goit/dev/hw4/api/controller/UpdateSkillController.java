@@ -12,8 +12,8 @@ public class UpdateSkillController {
         this.connector = connector;
     }
 
-    public void update (SkillDto dto) {
-        new UpdateEntityService(connector).update(new UpdateSkillQuery(
+    public int update (SkillDto dto) {
+        return new UpdateEntityService(connector).update(new UpdateSkillQuery(
                 statement -> {
                     statement.setString(1, dto.getTrend());
                     statement.setString(2, dto.getLevel());

@@ -16,12 +16,14 @@ public class DeleteDeveloperController {
         this.connector = connector;
     }
 
-    public void delete (IdDto idDto) {
+    public int delete (IdDto idDto) {
         DeleteService deleteDeveloperService = new DeleteEntityService(connector);
         FilterCondition condition = statement -> statement.setLong(1, idDto.getId());
 
-        deleteDeveloperService.delete(new DeleteDeveloperQuery(condition));
+        int affected = deleteDeveloperService.delete(new DeleteDeveloperQuery(condition));
         deleteDeveloperService.delete(new DeleteSkillRelationByDeveloperIdQuery(condition));
         deleteDeveloperService.delete(new DeleteProjectRelationByDeveloperIdQuery(condition));
+
+        return affected;
     }
 }

@@ -26,8 +26,8 @@ public class RemoveDeveloperCommand implements Command {
     public void execute() {
         view.write("Enter developer id");
         String id = view.read();
-        controller.delete(new IdDto(Long.parseLong(id)));
-        // todo Что-то нужно возвращать для контроля? Также в других Remove?
+        int affected = controller.delete(new IdDto(Long.parseLong(id)));
+        view .write ( "Removed developers with relations: " + affected );
     }
 
     @Override

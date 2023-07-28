@@ -31,7 +31,8 @@ public class CreateSkillCommand implements Command {
     public void execute() {
         List<SkillDto> existedSkills = selectController.select();
         String validLevels = existedSkills.stream()
-                .map(skillDto -> skillDto.getLevel())
+                //.map(skillDto -> skillDto.getLevel())
+                .map(SkillDto::getLevel)
                 .distinct()
                 .collect(Collectors.joining(", "));
 
@@ -40,7 +41,8 @@ public class CreateSkillCommand implements Command {
         view.write("Enter level of: " + validLevels);
         String level = view.read();
 
-        controller.insert(new SkillDto(trend, level));
+        long id = controller.insert(new SkillDto(trend, level));
+        view .write ( "New skill id: " + id );
     }
 
     @Override

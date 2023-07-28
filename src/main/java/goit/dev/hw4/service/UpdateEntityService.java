@@ -14,10 +14,10 @@ public class UpdateEntityService implements UpdateService {
         this.connector = connector;
     }
 
-    public void update (AbstractUpdateQuery query) {
+    public int update (AbstractUpdateQuery query) {
         try (Connection connection = connector.createConnection()) {
             PreparedStatement statement = query.createStatement(connection);
-            statement.executeUpdate();
+            return statement.executeUpdate();
         } catch (SQLException throwables) {
             throw new RuntimeException("Problems with query " + query .toString());
         }

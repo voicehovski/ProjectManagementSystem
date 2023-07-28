@@ -15,10 +15,10 @@ public class DeleteEntityService implements DeleteService {
     }
 
     @Override
-    public void delete(AbstractDeleteQuery query) {
+    public int delete(AbstractDeleteQuery query) {
         try (Connection connection = connector.createConnection()) {
             PreparedStatement statement = query.createStatement(connection);
-            statement.executeUpdate();
+            return statement.executeUpdate();
         } catch (SQLException throwables) {
             throw new RuntimeException("Problems with query " + query .toString());
         }

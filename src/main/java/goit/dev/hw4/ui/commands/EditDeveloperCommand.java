@@ -40,7 +40,9 @@ public class EditDeveloperCommand implements Command {
         view.write("Enter salary");
         int salary = Integer.parseInt(view.read());
 
-        controller.update(new DeveloperDto(id, name, birthDate, birthplace, gender, salary));
+        int affected = controller.update(new DeveloperDto(id, name, birthDate, birthplace, gender, salary));
+
+        view .write ( "Edited developers: " + affected );
     }
 
     @Override

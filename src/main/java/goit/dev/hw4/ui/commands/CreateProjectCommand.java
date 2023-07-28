@@ -37,7 +37,8 @@ public class CreateProjectCommand implements Command {
         view.write("Enter cost");
         int cost = Integer.parseInt(view.read());
 
-        controller.insert(new ProjectDto(name, startDate, companyId, customerId, cost));
+        long id = controller.insert(new ProjectDto(name, startDate, companyId, customerId, cost));
+        view .write ( "New project id: " + id );
     }
 
     @Override

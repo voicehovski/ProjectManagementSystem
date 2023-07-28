@@ -12,8 +12,8 @@ public class DeleteSkillController {
         this.connector = connector;
     }
 
-    public void delete (IdDto dto) {
-        new DeleteEntityService(connector).delete(new DeleteSkillQuery(
+    public int delete (IdDto dto) {
+        return new DeleteEntityService(connector).delete(new DeleteSkillQuery(
                 statement -> statement.setLong(1, dto.getId())
         ));
     }
