@@ -1,7 +1,7 @@
 package goit.dev.hw4.query;
 
 import goit.dev.hw4.model.Developer;
-import goit.dev.hw4.query.common.AbstractQuery;
+import goit.dev.hw4.query.common.AbstractSelectQuery;
 import goit.dev.hw4.query.condition.FilterCondition;
 
 import java.sql.ResultSet;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectDeveloperQuery extends AbstractQuery<Developer> {
+public class SelectDeveloperQuery extends AbstractSelectQuery<Developer> {
     public static final String QUERY = "SELECT " +
             "id, name, birth_date, birthplace, gender, salary " +
             "FROM developers";

@@ -6,11 +6,10 @@ import java.sql.*;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractInsertQuery implements Query {
-    private FilterCondition filterCondition;
+public abstract class AbstractInsertQuery extends AbstractQuery<Object> {
 
     public AbstractInsertQuery(FilterCondition filterCondition) {
-        this.filterCondition = filterCondition;
+        super(filterCondition);
     }
 
     @Override
@@ -19,11 +18,4 @@ public abstract class AbstractInsertQuery implements Query {
         filterCondition.setConditionTo(statement);
         return statement;
     }
-
-    @Override
-    public List createEntity(ResultSet rs) throws SQLException {
-        return Collections.emptyList();
-    }
-
-    public abstract String getQuery ();
 }

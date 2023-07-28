@@ -1,13 +1,6 @@
 package goit.dev.hw4.query;
 
-import goit.dev.hw4.model.Developer;
-import goit.dev.hw4.query.common.AbstractQuery;
 import goit.dev.hw4.query.condition.FilterCondition;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SelectDeveloperBySkillLevelQuery extends SelectDeveloperQuery {
     public static final String QUERY = "SELECT DISTINCT " +

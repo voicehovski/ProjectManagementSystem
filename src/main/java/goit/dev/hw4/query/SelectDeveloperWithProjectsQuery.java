@@ -1,7 +1,7 @@
 package goit.dev.hw4.query;
 
 import goit.dev.hw4.model.*;
-import goit.dev.hw4.query.common.AbstractQuery;
+import goit.dev.hw4.query.common.AbstractSelectQuery;
 import goit.dev.hw4.query.condition.FilterCondition;
 
 import java.sql.ResultSet;
@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SelectDeveloperWithProjectsQuery extends AbstractQuery<DeveloperWithProjects> {
+public class SelectDeveloperWithProjectsQuery extends AbstractSelectQuery<DeveloperWithProjects> {
     public static final String QUERY = "SELECT " +
             "developer.id AS developer_id, developer.name AS developer_name, birth_date, birthplace, gender, salary, " +
             "project.id as project_id, project.name AS project_name, start, company_id, customer_id, cost " +
@@ -24,7 +24,7 @@ public class SelectDeveloperWithProjectsQuery extends AbstractQuery<DeveloperWit
         super(statement -> {});
     }
 
-    // Это нужно поскольку в подклассах с фильтрацией конструктор из AbstractQuery недоступен
+    // Это нужно поскольку в подклассах с фильтрацией конструктор из AbstractSelectQuery недоступен
     public SelectDeveloperWithProjectsQuery(FilterCondition condition) {
         super(condition);
     }

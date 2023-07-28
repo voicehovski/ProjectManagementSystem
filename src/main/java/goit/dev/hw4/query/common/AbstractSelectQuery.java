@@ -6,11 +6,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractUpdateQuery extends AbstractQuery<Object> {
-    public AbstractUpdateQuery(FilterCondition filterCondition) {
+public abstract class AbstractSelectQuery<R> extends AbstractQuery<R> {
+
+    public AbstractSelectQuery(FilterCondition filterCondition) {
         super(filterCondition);
     }
+
+    public abstract List<R> createEntity(ResultSet rs) throws SQLException;
 }

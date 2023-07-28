@@ -1,16 +1,14 @@
 package goit.dev.hw4.query;
 
-import goit.dev.hw4.model.Project;
 import goit.dev.hw4.model.Skill;
-import goit.dev.hw4.query.common.AbstractQuery;
-import goit.dev.hw4.query.condition.FilterCondition;
+import goit.dev.hw4.query.common.AbstractSelectQuery;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectSkillQuery extends AbstractQuery<Skill> {
+public class SelectSkillQuery extends AbstractSelectQuery<Skill> {
     public SelectSkillQuery() {
         super(statement -> {});
     }

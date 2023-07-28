@@ -1,6 +1,6 @@
 package goit.dev.hw4.query;
 
-import goit.dev.hw4.query.common.AbstractQuery;
+import goit.dev.hw4.query.common.AbstractSelectQuery;
 import goit.dev.hw4.query.condition.FilterCondition;
 
 import java.sql.ResultSet;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
-public class TotalSalaryQuery extends AbstractQuery<Integer> {
+public class TotalSalaryQuery extends AbstractSelectQuery<Integer> {
 
     public TotalSalaryQuery(FilterCondition condition) {
         super(condition);
