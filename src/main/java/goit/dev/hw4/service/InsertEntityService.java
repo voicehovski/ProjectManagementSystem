@@ -2,7 +2,11 @@ package goit.dev.hw4.service;
 
 import goit.dev.hw4.config.DatabaseManagerConnector;
 import goit.dev.hw4.query.common.Query;
-import goit.dev.hw4.query.executor.InsertQueryExecutor;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class InsertEntityService implements InsertService {
     DatabaseManagerConnector connector;
@@ -12,8 +16,21 @@ public class InsertEntityService implements InsertService {
     }
 
     @Override
-    public long insert(Query query) {
-        InsertQueryExecutor executor = new InsertQueryExecutor(connector);
-        return executor.execute(query);
+    public <R> long insert(Query<R> query) {
+        try (Connection connection = connector.createConnection()) {
+            PreparedStatement statement = query.createStatement(connection);
+            statement.executeUpdate();
+            return fetchCreatedId(statement.getGeneratedKeys());
+        } catch (SQLException throwables) {
+            throw new RuntimeException(throwables);
+        }
+    }
+
+    private long fetchCreatedId(ResultSet keys) throws SQLException {
+        if (keys.next()) {
+            return keys.getLong("id");
+        } else {
+            throw new RuntimeException("No key was generated");
+        }
     }
 }
