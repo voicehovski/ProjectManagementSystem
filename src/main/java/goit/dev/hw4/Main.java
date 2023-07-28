@@ -38,7 +38,7 @@ public class Main {
                 = new SelectEntityService<>(manager);
         SelectService<ProjectWithDevelopers> selectProjectWithDevelopersService
                 = new SelectEntityService<>(manager);
-        AgregateService<Integer> totalSallrayService = new TotalSalaryService(manager);
+        AgregateService<Integer> totalSallrayService = new DefaultAgregateService(manager);
 
         // Общие контроллеры. Содержат общую логику для select* и agregate* В принципе можно обойтись без них
         SelectController<DeveloperDto, Developer> baseSelectDeveloperController

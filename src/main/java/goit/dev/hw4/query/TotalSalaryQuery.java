@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
+// todo Криво. Сделать отдельный тип Query который возвращает скалярное значение. А для групп?
 public class TotalSalaryQuery extends AbstractSelectQuery<Integer> {
 
     public TotalSalaryQuery(FilterCondition condition) {

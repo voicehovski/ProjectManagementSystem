@@ -1,20 +1,20 @@
 package goit.dev.hw4.service;
 
 import goit.dev.hw4.config.DatabaseManagerConnector;
-import goit.dev.hw4.query.common.Query;
+import goit.dev.hw4.query.common.AbstractUpdateQuery;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UpdateEntityService<R> implements UpdateService<R> {
+public class UpdateEntityService implements UpdateService {
     DatabaseManagerConnector connector;
 
     public UpdateEntityService(DatabaseManagerConnector connector) {
         this.connector = connector;
     }
 
-    public void update (Query<R> query) {
+    public void update (AbstractUpdateQuery query) {
         try (Connection connection = connector.createConnection()) {
             PreparedStatement statement = query.createStatement(connection);
             statement.executeUpdate();

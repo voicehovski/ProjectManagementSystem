@@ -1,21 +1,22 @@
 package goit.dev.hw4.service;
 
 import goit.dev.hw4.config.DatabaseManagerConnector;
+import goit.dev.hw4.query.common.AbstractSelectQuery;
 import goit.dev.hw4.query.common.Query;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class TotalSalaryService implements AgregateService<Integer> {
+public class DefaultAgregateService implements AgregateService<Integer> {
     private DatabaseManagerConnector connector;
 
-    public TotalSalaryService(DatabaseManagerConnector connector) {
+    public DefaultAgregateService(DatabaseManagerConnector connector) {
         this.connector = connector;
     }
 
     @Override
-    public Integer get(Query<Integer> query) {
+    public Integer get(AbstractSelectQuery<Integer> query) {
         try (Connection connection = connector.createConnection()) {
             PreparedStatement statement = query.createStatement(connection);
             return query.createEntity(statement.executeQuery()).stream()

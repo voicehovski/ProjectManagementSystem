@@ -1,6 +1,7 @@
 package goit.dev.hw4.service;
 
 import goit.dev.hw4.config.DatabaseManagerConnector;
+import goit.dev.hw4.query.common.AbstractInsertQuery;
 import goit.dev.hw4.query.common.Query;
 
 import java.sql.Connection;
@@ -16,7 +17,7 @@ public class InsertEntityService implements InsertService {
     }
 
     @Override
-    public <R> long insert(Query<R> query) {
+    public long insert(AbstractInsertQuery query) {
         try (Connection connection = connector.createConnection()) {
             PreparedStatement statement = query.createStatement(connection);
             statement.executeUpdate();

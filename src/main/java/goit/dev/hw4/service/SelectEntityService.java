@@ -1,6 +1,7 @@
 package goit.dev.hw4.service;
 
 import goit.dev.hw4.config.DatabaseManagerConnector;
+import goit.dev.hw4.query.common.AbstractSelectQuery;
 import goit.dev.hw4.query.common.Query;
 
 import java.sql.Connection;
@@ -15,8 +16,7 @@ public class SelectEntityService<E> implements SelectService<E> {
         this.connector = connector;
     }
 
-    // todo method should take more specific type, like Abstract(Select)Query<E>. How?
-    public List<E> select (Query<E> query) {
+    public List<E> select (AbstractSelectQuery<E> query) {
         try (Connection connection = connector.createConnection()) {
             PreparedStatement statement = query.createStatement(connection);
             return query.createEntity(statement.executeQuery());

@@ -1,7 +1,7 @@
 package goit.dev.hw4.service;
 
-import goit.dev.hw4.query.common.Query;
+import goit.dev.hw4.query.common.AbstractUpdateQuery;
 
-public interface UpdateService <R> {
-    void update (Query<R> query);
+public interface UpdateService {
+    void update (AbstractUpdateQuery query);
 }

@@ -1,7 +1,7 @@
 package goit.dev.hw4.service;
 
-import goit.dev.hw4.query.common.Query;
+import goit.dev.hw4.query.common.AbstractDeleteQuery;
 
-public interface DeleteService<R> {
-        void delete (Query<R> query);
+public interface DeleteService {
+        void delete (AbstractDeleteQuery query);
 }

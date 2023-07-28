@@ -1,7 +1,7 @@
 package goit.dev.hw4.service;
 
-import goit.dev.hw4.query.common.Query;
+import goit.dev.hw4.query.common.AbstractInsertQuery;
 
 public interface InsertService {
-    <R> long insert (Query<R> query);
+    long insert (AbstractInsertQuery query);
 }
