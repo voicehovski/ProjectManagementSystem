@@ -1,5 +1,6 @@
 package goit.dev.hw4.api.controller;
 
+import goit.dev.hw4.api.controller.common.SelectController;
 import goit.dev.hw4.api.mapper.Mapper;
 import goit.dev.hw4.api.mapper.SkillMapper;
 import goit.dev.hw4.config.DatabaseManagerConnector;
@@ -12,18 +13,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SelectSkillController {
-    DatabaseManagerConnector connector;
+    private SelectController <SkillDto, Skill> commonController;
 
-    public SelectSkillController(DatabaseManagerConnector connector) {
-        this.connector = connector;
+    public SelectSkillController ( SelectController <SkillDto, Skill> commonController ) {
+        this .commonController = commonController;
     }
 
     public List<SkillDto> select () {
-        Mapper<SkillDto, Skill> mapper = new SkillMapper();
-        // Нужна промежуточная переменная skills, поскольку без неё стрим не понимает генерики
-        List<Skill> skills =  new SelectEntityService<>(connector).select(new SelectSkillQuery());
-        return skills.stream()
-                .map(mapper::toDto)
-                .collect(Collectors.toList());
+        return commonController .select(new SelectSkillQuery());
     }
 }

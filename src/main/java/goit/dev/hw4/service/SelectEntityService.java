@@ -24,4 +24,14 @@ public class SelectEntityService<E> implements SelectService<E> {
             throw new RuntimeException("Problems with query " + query .toString());
         }
     }
+/*
+    public List<E> select ( AbstractSelectQuery query, EntityBuilder<E> builder ) {
+        try (Connection connection = connector.createConnection()) {
+            PreparedStatement statement = query.createStatement(connection);
+            return builder.createEntity(statement.executeQuery());
+        } catch (SQLException throwables) {
+            throw new RuntimeException("Problems with query " + query .toString());
+        }
+    }
+    */
 }

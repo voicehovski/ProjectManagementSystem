@@ -8,10 +8,7 @@ import goit.dev.hw4.api.controller.common.SelectController;
 import goit.dev.hw4.api.mapper.*;
 import goit.dev.hw4.config.DatabaseManagerConnector;
 import goit.dev.hw4.config.PropertiesConfig;
-import goit.dev.hw4.model.Developer;
-import goit.dev.hw4.model.DeveloperWithProjects;
-import goit.dev.hw4.model.Project;
-import goit.dev.hw4.model.ProjectWithDevelopers;
+import goit.dev.hw4.model.*;
 import goit.dev.hw4.model.dto.*;
 import goit.dev.hw4.service.*;
 import goit.dev.hw4.ui.*;
@@ -31,6 +28,7 @@ public class Main {
         Mapper<ProjectDto, Project> projectMapper = new ProjectMapper();
         Mapper<DeveloperWithProjectsDto, DeveloperWithProjects> developerWithProjectsMapper = new DeveloperWithProjectsMapper(developerMapper, projectMapper);
         Mapper<ProjectWithDevelopersDto, ProjectWithDevelopers> projectWithDevelopersMapper = new ProjectWithDevelopersMapper(developerMapper, projectMapper);
+        Mapper<SkillDto, Skill> skillMapper = new SkillMapper();
 
         // Сервисы для общих контроллеров
         SelectService<Developer> selectDeveloperService = new SelectEntityService<>(manager);
@@ -38,6 +36,7 @@ public class Main {
                 = new SelectEntityService<>(manager);
         SelectService<ProjectWithDevelopers> selectProjectWithDevelopersService
                 = new SelectEntityService<>(manager);
+        SelectService<Skill> selectSkillService = new SelectEntityService<>(manager);
         AgregateService<Integer> totalSallrayService = new DefaultAgregateService(manager);
 
         // Общие контроллеры. Содержат общую логику для select* и agregate* В принципе можно обойтись без них
@@ -47,6 +46,8 @@ public class Main {
                 = new SelectController<>(selectDevelopersWithProjectsService, developerWithProjectsMapper);
         SelectController <ProjectWithDevelopersDto, ProjectWithDevelopers> baseSelectProjectWithDevelopersController
                 = new SelectController<>(selectProjectWithDevelopersService, projectWithDevelopersMapper);
+        SelectController <SkillDto, Skill> baseSelectSkillController
+                = new SelectController<>(selectSkillService, skillMapper);
         AgregateController<NumberDto, Integer> baseAgregateNumberController
                 = new AgregateController<>(totalSallrayService,new NumberMapper());
 
@@ -94,12 +95,12 @@ public class Main {
                         view
                 ),
                 new GetAllSkillsCommand(
-                        new SelectSkillController(manager),
+                        new SelectSkillController(baseSelectSkillController),
                         view
                 ),
                 new EditSkillCommand(
                         new UpdateSkillController(manager),
-                        new SelectSkillController(manager),
+                        new SelectSkillController(baseSelectSkillController),
                         view
                 ),
                 new RemoveSkillCommand(
@@ -108,7 +109,7 @@ public class Main {
                 ),
                 new CreateSkillCommand(
                         new InsertSkillController(manager),
-                        new SelectSkillController(manager),
+                        new SelectSkillController(baseSelectSkillController),
                         view
                 ),
                 new GetAllProjectsCommand(

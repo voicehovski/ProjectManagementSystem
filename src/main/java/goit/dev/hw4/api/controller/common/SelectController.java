@@ -1,6 +1,7 @@
 package goit.dev.hw4.api.controller.common;
 
 import goit.dev.hw4.api.mapper.Mapper;
+import goit.dev.hw4.query.common.AbstractSelectQuery;
 import goit.dev.hw4.query.common.Query;
 import goit.dev.hw4.service.SelectService;
 
@@ -16,7 +17,7 @@ public class SelectController <R, E> { // RESULT_DTO, ENTITY
         this.mapper = mapper;
     }
 
-    public List<R> select (Query<E> query) {
+    public List<R> select (AbstractSelectQuery<E> query) {
         return service.select(query).stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());

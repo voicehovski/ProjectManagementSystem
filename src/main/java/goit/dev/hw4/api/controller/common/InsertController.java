@@ -1,5 +1,6 @@
 package goit.dev.hw4.api.controller.common;
 
+import goit.dev.hw4.query.common.AbstractInsertQuery;
 import goit.dev.hw4.query.common.Query;
 import goit.dev.hw4.service.InsertService;
 
@@ -10,7 +11,7 @@ public class InsertController {
         this.service = service;
     }
 
-    public long insert (Query query) {
+    public long insert (AbstractInsertQuery query) {
         return service.insert(query);
     }
 }
