@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractDeleteQuery extends AbstractQuery<Object> {
+public abstract class AbstractDeleteQuery extends AbstractQuery {
     public AbstractDeleteQuery(FilterCondition filterCondition) {
         super(filterCondition);
     }

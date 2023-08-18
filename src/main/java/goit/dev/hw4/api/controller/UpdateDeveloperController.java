@@ -1,19 +1,18 @@
 package goit.dev.hw4.api.controller;
 
-import goit.dev.hw4.config.DatabaseManagerConnector;
 import goit.dev.hw4.model.dto.DeveloperDto;
 import goit.dev.hw4.query.UpdateDeveloperQuery;
-import goit.dev.hw4.service.UpdateEntityService;
+import goit.dev.hw4.service.UpdateService;
 
-public class UpdateDeveloperController {
-    private DatabaseManagerConnector connector;
+public class UpdateDeveloperController {    // todo implements UpdateController <DeveloperDto>
+    private UpdateService service;
 
-    public UpdateDeveloperController(DatabaseManagerConnector connector) {
-        this.connector = connector;
+    public UpdateDeveloperController(UpdateService service) {
+        this.service = service;
     }
 
     public int update (DeveloperDto developerDto) {
-        return new UpdateEntityService(connector).update(new UpdateDeveloperQuery(
+        return service.update(new UpdateDeveloperQuery(
             statement -> {
                 statement.setString(1, developerDto.getName());
                 statement.setDate(2, developerDto.getBirthDate());

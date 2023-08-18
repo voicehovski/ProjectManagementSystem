@@ -4,43 +4,30 @@ import goit.dev.hw4.api.mapper.Mapper;
 import goit.dev.hw4.api.mapper.ProjectMapper;
 import goit.dev.hw4.config.DatabaseManagerConnector;
 import goit.dev.hw4.model.Project;
+import goit.dev.hw4.model.builder.ProjectBuilder;
 import goit.dev.hw4.model.dto.ProjectDto;
 import goit.dev.hw4.query.SelectProjectQuery;
 import goit.dev.hw4.service.SelectEntityService;
+import goit.dev.hw4.service.SelectService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-// Класс может быть реализован с использованием SelectController. Текущая реализация служит для примера
-// и поясняет некоторые особенности использования generics
 public class SelectProjectController {
-    private DatabaseManagerConnector connector;
+    private SelectService service;
+    private Mapper<ProjectDto, Project> mapper;
 
-    public SelectProjectController(DatabaseManagerConnector connector) {
-        this.connector = connector;
+    public SelectProjectController(SelectService service, Mapper<ProjectDto, Project> mapper) {
+        this.service = service;
+        this.mapper = mapper;
     }
 
     public List<ProjectDto> select () {
-        Mapper<ProjectDto, Project> mapper = new ProjectMapper();
-        // Нужна промежуточная переменная projects, поскольку без неё стрим не понимает генерики.
-        // Также если не заполнен <> в new, оно почемуто не подставляет Project из объявления переменой,
-        // но подставляет Object, так что метод select получает не подходящий аргумент.
-        // Без <> не подчеркивает красным, но выдаёт предупреждение
-        List<Project> projects = new SelectEntityService<Project>(connector).select(new SelectProjectQuery());
-        return projects.stream()
+        return service.<Project>select(new SelectProjectQuery(), new ProjectBuilder()).stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
-}
-/*
-class SelectController<D,E> {
-    private Mapper<D, E> mapper;
-    private EntityBuilder <E> builder;
-    private SelectEntityService <E> service;
-    public SelectController () {
-
-    }
-
+    /* todo think
     public List <D> select () { // dto arg
         AbstractSelectQuery query = getQuery ()  // dto arg
         List <E> entities = service .select (query, builder);
@@ -48,5 +35,5 @@ class SelectController<D,E> {
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
+    */
 }
-*/

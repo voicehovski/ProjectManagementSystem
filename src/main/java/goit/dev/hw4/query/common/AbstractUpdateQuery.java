@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractUpdateQuery extends AbstractQuery<Object> {
+public abstract class AbstractUpdateQuery extends AbstractQuery {
     public AbstractUpdateQuery(FilterCondition filterCondition) {
         super(filterCondition);
     }

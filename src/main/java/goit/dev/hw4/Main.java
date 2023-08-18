@@ -3,8 +3,6 @@ package goit.dev.hw4;
 
 
 import goit.dev.hw4.api.controller.*;
-import goit.dev.hw4.api.controller.common.AgregateController;
-import goit.dev.hw4.api.controller.common.SelectController;
 import goit.dev.hw4.api.mapper.*;
 import goit.dev.hw4.config.DatabaseManagerConnector;
 import goit.dev.hw4.config.PropertiesConfig;
@@ -23,34 +21,18 @@ public class Main {
         Properties dbConnectionProperties = new PropertiesConfig().load("application.properties");
         DatabaseManagerConnector manager = new DatabaseManagerConnector(dbConnectionProperties, dbUsername, dbPassword);
 
-        // Мапперы для общих севисов
+        Mapper<NumberDto, Integer> agregateNumberMapper = new NumberMapper();
         Mapper<DeveloperDto, Developer> developerMapper = new DeveloperMapper();
         Mapper<ProjectDto, Project> projectMapper = new ProjectMapper();
         Mapper<DeveloperWithProjectsDto, DeveloperWithProjects> developerWithProjectsMapper = new DeveloperWithProjectsMapper(developerMapper, projectMapper);
         Mapper<ProjectWithDevelopersDto, ProjectWithDevelopers> projectWithDevelopersMapper = new ProjectWithDevelopersMapper(developerMapper, projectMapper);
         Mapper<SkillDto, Skill> skillMapper = new SkillMapper();
 
-        // Сервисы для общих контроллеров
-        SelectService<Developer> selectDeveloperService = new SelectEntityService<>(manager);
-        SelectService<DeveloperWithProjects> selectDevelopersWithProjectsService
-                = new SelectEntityService<>(manager);
-        SelectService<ProjectWithDevelopers> selectProjectWithDevelopersService
-                = new SelectEntityService<>(manager);
-        SelectService<Skill> selectSkillService = new SelectEntityService<>(manager);
-        AgregateService<Integer> totalSallrayService = new DefaultAgregateService(manager);
-
-        // Общие контроллеры. Содержат общую логику для select* и agregate* В принципе можно обойтись без них
-        SelectController<DeveloperDto, Developer> baseSelectDeveloperController
-                = new SelectController<>(selectDeveloperService, developerMapper);
-        SelectController <DeveloperWithProjectsDto, DeveloperWithProjects> baseSelectDeveloperWithProjectsController
-                = new SelectController<>(selectDevelopersWithProjectsService, developerWithProjectsMapper);
-        SelectController <ProjectWithDevelopersDto, ProjectWithDevelopers> baseSelectProjectWithDevelopersController
-                = new SelectController<>(selectProjectWithDevelopersService, projectWithDevelopersMapper);
-        SelectController <SkillDto, Skill> baseSelectSkillController
-                = new SelectController<>(selectSkillService, skillMapper);
-        AgregateController<NumberDto, Integer> baseAgregateNumberController
-                = new AgregateController<>(totalSallrayService,new NumberMapper());
-
+        AgregateService agregateNumberService = new DefaultAgregateService(manager);
+        SelectService selectService = new SelectEntityService(manager);
+        UpdateService updateService = new UpdateEntityService(manager);
+        InsertService insertService = new InsertEntityService(manager);
+        DeleteService deleteService = new DeleteEntityService(manager);
 
         // Init UI
         View view = new DefaultView();
@@ -59,69 +41,69 @@ public class Main {
                 helpCommand,
                 new ExitCommand(),
                 new GetTotalSalaryByProjectCommand(
-                        new AgregateTotalSalaryByProjectController(baseAgregateNumberController),
+                        new AgregateTotalSalaryByProjectController(agregateNumberService, agregateNumberMapper),
                         view
                 ),
                 new GetDevelopersBySkillTrendCommand(
-                        new SelectDevelopersBySkillTrendContorller(baseSelectDeveloperController),
+                        new SelectDevelopersBySkillTrendContorller(selectService, developerMapper),
                         view
                 ),
                 new GetDevelopersBySkillLevelCommand(
-                        new SelectDevelopersBySkillLevelContorller(baseSelectDeveloperController),
+                        new SelectDevelopersBySkillLevelContorller(selectService, developerMapper),
                         view
                 ),
                 new GetAllDevelopersCommand(
-                        new SelectDeveloperController(baseSelectDeveloperController),
+                        new SelectDeveloperController(selectService, developerMapper),
                         view
                 ),
                 new CreateDeveloperCommand(
-                        new InsertDeveloperController(manager),
+                        new InsertDeveloperController(insertService),
                         view
                 ),
                 new EditDeveloperCommand(
-                        new UpdateDeveloperController(manager),
+                        new UpdateDeveloperController(updateService),
                         view
                 ),
                 new RemoveDeveloperCommand(
-                        new DeleteDeveloperController(manager),
+                        new DeleteDeveloperController(deleteService),
                         view
                 ),
                 new GetFormattedProjectWithDevelopersCommand(
-                        new SelectProjectWithDevelopersController(baseSelectProjectWithDevelopersController),
+                        new SelectProjectWithDevelopersController(selectService, projectWithDevelopersMapper),
                         view
                 ),
                 new GetDeveloperByProjectCommand(
-                        new SelectDeveloperByProjectController(baseSelectDeveloperController),
+                        new SelectDeveloperByProjectController(selectService, developerMapper),
                         view
                 ),
                 new GetAllSkillsCommand(
-                        new SelectSkillController(baseSelectSkillController),
+                        new SelectSkillController(selectService, skillMapper),
                         view
                 ),
                 new EditSkillCommand(
-                        new UpdateSkillController(manager),
-                        new SelectSkillController(baseSelectSkillController),
+                        new UpdateSkillController(updateService),
+                        new SelectSkillController(selectService, skillMapper),
                         view
                 ),
                 new RemoveSkillCommand(
-                        new DeleteSkillController(manager),
+                        new DeleteSkillController(deleteService),
                         view
                 ),
                 new CreateSkillCommand(
-                        new InsertSkillController(manager),
-                        new SelectSkillController(baseSelectSkillController),
+                        new InsertSkillController(insertService),
+                        new SelectSkillController(selectService, skillMapper),
                         view
                 ),
                 new GetAllProjectsCommand(
-                        new SelectProjectController(manager),
+                        new SelectProjectController(selectService, projectMapper),
                         view
                 ),
                 new GetProjectsByNameCommand(
-                        new SelectProjectByNameController(manager),
+                        new SelectProjectByNameController(selectService,projectMapper),
                         view
                 ),
                 new CreateProjectCommand(
-                        new InsertProjectController(manager),
+                        new InsertProjectController(insertService),
                         view
                 )
         };

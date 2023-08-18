@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectSkillQuery extends AbstractSelectQuery<Skill> {
+public class SelectSkillQuery extends AbstractSelectQuery {
     public SelectSkillQuery() {
         super(statement -> {});
     }
@@ -18,14 +18,5 @@ public class SelectSkillQuery extends AbstractSelectQuery<Skill> {
         return "SELECT " +
                 "id, trend, level " +
                 "FROM skills";
-    }
-
-    @Override
-    public List<Skill> createEntity(ResultSet rs) throws SQLException {
-        List<Skill> skillList = new ArrayList<>();
-        while (rs.next()){
-            skillList.add(Skill.createFromResultSet(rs));
-        }
-        return skillList;
     }
 }

@@ -1,25 +1,28 @@
 package goit.dev.hw4.api.controller;
 
-import goit.dev.hw4.api.controller.common.SelectController;
 import goit.dev.hw4.api.mapper.Mapper;
-import goit.dev.hw4.api.mapper.SkillMapper;
-import goit.dev.hw4.config.DatabaseManagerConnector;
 import goit.dev.hw4.model.Skill;
+import goit.dev.hw4.model.builder.SkillBuilder;
 import goit.dev.hw4.model.dto.SkillDto;
 import goit.dev.hw4.query.SelectSkillQuery;
-import goit.dev.hw4.service.SelectEntityService;
+import goit.dev.hw4.service.SelectService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class SelectSkillController {
-    private SelectController <SkillDto, Skill> commonController;
 
-    public SelectSkillController ( SelectController <SkillDto, Skill> commonController ) {
-        this .commonController = commonController;
+    private SelectService service;
+    private Mapper<SkillDto, Skill> mapper;
+
+    public SelectSkillController(SelectService service, Mapper<SkillDto, Skill> mapper) {
+        this.service = service;
+        this.mapper = mapper;
     }
 
     public List<SkillDto> select () {
-        return commonController .select(new SelectSkillQuery());
+        return service.select(new SelectSkillQuery(), new SkillBuilder()).stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
     }
 }

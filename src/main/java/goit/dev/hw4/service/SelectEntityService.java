@@ -1,6 +1,7 @@
 package goit.dev.hw4.service;
 
 import goit.dev.hw4.config.DatabaseManagerConnector;
+import goit.dev.hw4.model.builder.EntityBuilder;
 import goit.dev.hw4.query.common.AbstractSelectQuery;
 import goit.dev.hw4.query.common.Query;
 
@@ -9,23 +10,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-public class SelectEntityService<E> implements SelectService<E> {
+public class SelectEntityService implements SelectService {
     DatabaseManagerConnector connector;
 
     public SelectEntityService(DatabaseManagerConnector connector) {
         this.connector = connector;
     }
 
-    public List<E> select (AbstractSelectQuery<E> query) {
-        try (Connection connection = connector.createConnection()) {
-            PreparedStatement statement = query.createStatement(connection);
-            return query.createEntity(statement.executeQuery());
-        } catch (SQLException throwables) {
-            throw new RuntimeException("Problems with query " + query .toString());
-        }
-    }
-/*
-    public List<E> select ( AbstractSelectQuery query, EntityBuilder<E> builder ) {
+    public <E> List<E> select (AbstractSelectQuery query, EntityBuilder<E> builder) {
         try (Connection connection = connector.createConnection()) {
             PreparedStatement statement = query.createStatement(connection);
             return builder.createEntity(statement.executeQuery());
@@ -33,5 +25,4 @@ public class SelectEntityService<E> implements SelectService<E> {
             throw new RuntimeException("Problems with query " + query .toString());
         }
     }
-    */
 }

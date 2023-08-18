@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 // todo Криво. Сделать отдельный тип Query который возвращает скалярное значение. А для групп?
-public class TotalSalaryQuery extends AbstractSelectQuery<Integer> {
+public class TotalSalaryQuery extends AbstractSelectQuery {
 
     public TotalSalaryQuery(FilterCondition condition) {
         super(condition);
@@ -24,13 +24,5 @@ public class TotalSalaryQuery extends AbstractSelectQuery<Integer> {
                 "INNER JOIN developers_to_projects ON developers.id = developer_id " +
 
                 "WHERE project_id = ?";
-    }
-
-    @Override
-    public List<Integer> createEntity(ResultSet rs) throws SQLException {
-        if (rs.next()) {
-            return List.of(rs.getInt("total"));
-        }
-        return Collections.emptyList();
     }
 }

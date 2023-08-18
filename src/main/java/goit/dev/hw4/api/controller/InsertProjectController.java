@@ -1,22 +1,19 @@
 package goit.dev.hw4.api.controller;
 
-import goit.dev.hw4.api.mapper.Mapper;
-import goit.dev.hw4.api.mapper.ProjectMapper;
-import goit.dev.hw4.config.DatabaseManagerConnector;
 import goit.dev.hw4.model.dto.ProjectDto;
 import goit.dev.hw4.query.InsertProjectQuery;
-import goit.dev.hw4.service.InsertEntityService;
+import goit.dev.hw4.service.InsertService;
 
 public class InsertProjectController {
-    private DatabaseManagerConnector connector;
 
-    public InsertProjectController(DatabaseManagerConnector connector) {
-        this.connector = connector;
+    private InsertService service;
+
+    public InsertProjectController(InsertService service) {
+        this.service = service;
     }
 
     public long insert (ProjectDto dto) {
-        Mapper mapper = new ProjectMapper();
-        return new InsertEntityService(connector).insert(new InsertProjectQuery(
+        return service.insert(new InsertProjectQuery(
                 statement -> {
                     statement.setString(1, dto.getName());
                     statement.setDate(2, dto.getStart());

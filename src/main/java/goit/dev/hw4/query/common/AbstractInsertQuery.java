@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractInsertQuery extends AbstractQuery<Object> {
+public abstract class AbstractInsertQuery extends AbstractQuery {
 
     public AbstractInsertQuery(FilterCondition filterCondition) {
         super(filterCondition);
