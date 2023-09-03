@@ -42,6 +42,10 @@ public class DeveloperDao {
         PreparedStatement statement = connection.prepareStatement(SELECT_ALL_QUERY);
         return new DeveloperBuilder().createEntity(statement.executeQuery());
     }
+    public List<Developer> selectBySkill ( Long [] skillIds ) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(SELECT_BY_SKILL_QUERY);
+        return new DeveloperBuilder().createEntity(statement.executeQuery());
+    }
 
     public int insert (Developer entity) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(INSERT_QUERY, Statement.RETURN_GENERATED_KEYS);

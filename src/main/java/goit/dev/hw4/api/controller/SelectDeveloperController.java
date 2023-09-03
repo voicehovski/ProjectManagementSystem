@@ -8,6 +8,7 @@ import goit.dev.hw4.model.dto.DeveloperDto;
 import goit.dev.hw4.model.dto.DeveloperDto;
 import goit.dev.hw4.query.SelectDeveloperQuery;
 import goit.dev.hw4.query.SelectDeveloperQuery;
+import goit.dev.hw4.repository.DeveloperRepository;
 import goit.dev.hw4.service.SelectService;
 
 import java.util.List;
@@ -15,16 +16,16 @@ import java.util.stream.Collectors;
 
 public class SelectDeveloperController {
 
-    private SelectService service;
+    private DeveloperRepository repository;
     private Mapper<DeveloperDto, Developer> mapper;
 
-    public SelectDeveloperController(SelectService service, Mapper<DeveloperDto, Developer> mapper) {
-        this.service = service;
+    public SelectDeveloperController(DeveloperRepository repository, Mapper<DeveloperDto, Developer> mapper) {
+        this.repository = repository;
         this.mapper = mapper;
     }
 
     public List<DeveloperDto> select () {
-        return service.<Developer>select(new SelectDeveloperQuery(), new DeveloperBuilder()).stream()
+        return repository. getAll(new SelectDeveloperQuery(), new DeveloperBuilder()).stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
