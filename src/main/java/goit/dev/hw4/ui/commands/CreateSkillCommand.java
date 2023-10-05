@@ -2,6 +2,7 @@ package goit.dev.hw4.ui.commands;
 
 import goit.dev.hw4.api.controller.InsertSkillController;
 import goit.dev.hw4.api.controller.SelectSkillController;
+import goit.dev.hw4.model.dto.IdDto;
 import goit.dev.hw4.model.dto.SkillDto;
 import goit.dev.hw4.ui.View;
 
@@ -29,7 +30,7 @@ public class CreateSkillCommand implements Command {
 
     @Override
     public void execute() {
-        List<SkillDto> existedSkills = selectController.select();
+        List<SkillDto> existedSkills = selectController.selectAll();
         String validLevels = existedSkills.stream()
                 //.map(skillDto -> skillDto.getLevel())
                 .map(SkillDto::getLevel)
@@ -41,8 +42,8 @@ public class CreateSkillCommand implements Command {
         view.write("Enter level of: " + validLevels);
         String level = view.read();
 
-        long id = controller.insert(new SkillDto(trend, level));
-        view .write ( "New skill id: " + id );
+        IdDto id = controller.insert(new SkillDto(trend, level));
+        view .write ( "New skill id: " + id.getId() );
     }
 
     @Override

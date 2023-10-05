@@ -28,8 +28,8 @@ public class GetDevelopersBySkillLevelCommand implements Command {
     @Override
     public void execute() {
         view.write("Enter skill level");
-        String trend = view.read();
-        List<DeveloperDto> developers = controller.select(new FilterByStringDto(trend));
+        String level = view.read();
+        List<DeveloperDto> developers = controller.select(new FilterByStringDto(level));
 
         if (developers.isEmpty()){
             view.write("No developers with such skill level");

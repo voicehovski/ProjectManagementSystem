@@ -26,7 +26,7 @@ public class GetAllDevelopersCommand implements Command {
 
     @Override
     public void execute() {
-        List<DeveloperDto> developers = controller.select();
+        List<DeveloperDto> developers = controller.selectAll();
 
         if (developers.isEmpty()){
             view.write("No developers");

@@ -1,31 +1,27 @@
 package goit.dev.hw4.api.controller;
 
-import goit.dev.hw4.config.DatabaseManagerConnector;
+import goit.dev.hw4.api.mapper.Mapper;
+import goit.dev.hw4.model.Developer;
+import goit.dev.hw4.model.Id;
 import goit.dev.hw4.model.dto.DeveloperDto;
-import goit.dev.hw4.model.dto.ProjectDto;
-import goit.dev.hw4.query.InsertDeveloperQuery;
-import goit.dev.hw4.query.InsertProjectQuery;
-import goit.dev.hw4.service.InsertEntityService;
-import goit.dev.hw4.service.InsertService;
+import goit.dev.hw4.model.dto.IdDto;
+import goit.dev.hw4.service.DeveloperService;
 
 import java.sql.Date;
 
 public class InsertDeveloperController {
-    private InsertService service;
+    private DeveloperService service;
+    private Mapper<DeveloperDto, Developer> mapper;
+    private Mapper<IdDto, Id> idMapper;
 
-    public InsertDeveloperController(InsertService service) {
+    public InsertDeveloperController(DeveloperService service, Mapper<DeveloperDto, Developer> mapper, Mapper<IdDto, Id> idMapper) {
         this.service = service;
+        this.mapper = mapper;
+        this.idMapper = idMapper;
     }
 
-    public long insert (DeveloperDto developerDto) {
-        return service.insert(new InsertDeveloperQuery(
-                statement -> {
-                    statement.setString(1,developerDto.getName());
-                    statement.setDate(2, developerDto.getBirthDate());
-                    statement.setString(3,developerDto.getBirthPlace());
-                    statement.setString(4,developerDto.getGender());
-                    statement.setInt(5,developerDto.getSalary());
-                }
-        ));
+    public IdDto insert (DeveloperDto developerDto) {
+        Id id = service.add(mapper.toEntity(developerDto));
+        return idMapper .toDto(id);
     }
 }

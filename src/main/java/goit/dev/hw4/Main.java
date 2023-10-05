@@ -6,12 +6,18 @@ import goit.dev.hw4.api.controller.*;
 import goit.dev.hw4.api.mapper.*;
 import goit.dev.hw4.config.DatabaseManagerConnector;
 import goit.dev.hw4.config.PropertiesConfig;
+import goit.dev.hw4.dao.DeveloperDao;
+import goit.dev.hw4.dao.ProjectDao;
+import goit.dev.hw4.dao.SkillDao;
 import goit.dev.hw4.model.*;
 import goit.dev.hw4.model.dto.*;
+import goit.dev.hw4.repository.*;
 import goit.dev.hw4.service.*;
 import goit.dev.hw4.ui.*;
 import goit.dev.hw4.ui.commands.*;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class Main {
@@ -20,19 +26,39 @@ public class Main {
         String dbUsername = System.getenv("dbUsername");
         Properties dbConnectionProperties = new PropertiesConfig().load("application.properties");
         DatabaseManagerConnector manager = new DatabaseManagerConnector(dbConnectionProperties, dbUsername, dbPassword);
+        Connection connection = null;
+        try {
+            connection = manager.createConnection();
+        } catch (SQLException e) {
+            // @q: What to do?
+        }
 
         Mapper<NumberDto, Integer> agregateNumberMapper = new NumberMapper();
         Mapper<DeveloperDto, Developer> developerMapper = new DeveloperMapper();
         Mapper<ProjectDto, Project> projectMapper = new ProjectMapper();
         Mapper<DeveloperWithProjectsDto, DeveloperWithProjects> developerWithProjectsMapper = new DeveloperWithProjectsMapper(developerMapper, projectMapper);
         Mapper<ProjectWithDevelopersDto, ProjectWithDevelopers> projectWithDevelopersMapper = new ProjectWithDevelopersMapper(developerMapper, projectMapper);
-        Mapper<SkillDto, Skill> skillMapper = new SkillMapper();
 
-        AgregateService agregateNumberService = new DefaultAgregateService(manager);
-        SelectService selectService = new SelectEntityService(manager);
-        UpdateService updateService = new UpdateEntityService(manager);
-        InsertService insertService = new InsertEntityService(manager);
-        DeleteService deleteService = new DeleteEntityService(manager);
+        Mapper<SkillDto, Skill> skillMapper = new SkillMapper();
+        Mapper<IdDto, Id> idMapper = new IdMapper();
+
+        SkillDao skillDao = new SkillDao (connection);
+        DeveloperDao developerDao = new DeveloperDao(connection);
+        ProjectDao projectDao = new ProjectDao(connection);
+
+        SkillRepository skillRepository = new SkillRepository(skillDao);
+        DeveloperProjectRepository developerProjectRepository = new DeveloperProjectRepository(
+                developerDao, projectDao
+        );
+        DeveloperRepository developerRepository = new DeveloperRepository(developerDao);
+        DeveloperSkillRepository developerSkillRepository = new DeveloperSkillRepository(developerDao, skillDao);
+        ProjectRepository projectRepository = new ProjectRepository(projectDao, developerDao);
+
+        SkillService skillService = new SkillService(skillRepository);
+        DeveloperProjectService developerProjectService = new DeveloperProjectService(developerProjectRepository);
+        DeveloperService developerService = new DeveloperService(developerRepository);
+        DeveloperSkillService developerSkillService = new DeveloperSkillService(developerSkillRepository);
+        ProjectService projectService = new ProjectService(projectRepository);
 
         // Init UI
         View view = new DefaultView();
@@ -41,69 +67,69 @@ public class Main {
                 helpCommand,
                 new ExitCommand(),
                 new GetTotalSalaryByProjectCommand(
-                        new AgregateTotalSalaryByProjectController(agregateNumberService, agregateNumberMapper),
+                        new AgregateTotalSalaryByProjectController(developerProjectService, idMapper),
                         view
                 ),
                 new GetDevelopersBySkillTrendCommand(
-                        new SelectDevelopersBySkillTrendContorller(selectService, developerMapper),
+                        new SelectDevelopersBySkillTrendContorller(developerSkillService, developerMapper),
                         view
                 ),
                 new GetDevelopersBySkillLevelCommand(
-                        new SelectDevelopersBySkillLevelContorller(selectService, developerMapper),
+                        new SelectDevelopersBySkillLevelContorller(developerSkillService, developerMapper),
                         view
                 ),
                 new GetAllDevelopersCommand(
-                        new SelectDeveloperController(selectService, developerMapper),
+                        new SelectDeveloperController(developerService, developerMapper),
                         view
                 ),
                 new CreateDeveloperCommand(
-                        new InsertDeveloperController(insertService),
+                        new InsertDeveloperController(developerService, developerMapper, idMapper),
                         view
                 ),
                 new EditDeveloperCommand(
-                        new UpdateDeveloperController(updateService),
+                        new UpdateDeveloperController(developerService, developerMapper),
                         view
                 ),
                 new RemoveDeveloperCommand(
-                        new DeleteDeveloperController(deleteService),
+                        new DeleteDeveloperController(developerService, idMapper),
                         view
                 ),
                 new GetFormattedProjectWithDevelopersCommand(
-                        new SelectProjectWithDevelopersController(selectService, projectWithDevelopersMapper),
+                        new SelectProjectWithDevelopersController(projectService, projectMapper),
                         view
                 ),
                 new GetDeveloperByProjectCommand(
-                        new SelectDeveloperByProjectController(selectService, developerMapper),
+                        new SelectDeveloperByProjectController(developerProjectService, developerMapper, idMapper),
                         view
                 ),
                 new GetAllSkillsCommand(
-                        new SelectSkillController(selectService, skillMapper),
+                        new SelectSkillController(skillService, skillMapper, idMapper),
                         view
                 ),
                 new EditSkillCommand(
-                        new UpdateSkillController(updateService),
-                        new SelectSkillController(selectService, skillMapper),
+                        new UpdateSkillController(skillService, skillMapper),
+                        new SelectSkillController(skillService, skillMapper, idMapper),
                         view
                 ),
                 new RemoveSkillCommand(
-                        new DeleteSkillController(deleteService),
+                        new DeleteSkillController(skillService),
                         view
                 ),
                 new CreateSkillCommand(
-                        new InsertSkillController(insertService),
-                        new SelectSkillController(selectService, skillMapper),
+                        new InsertSkillController(skillService, skillMapper, idMapper),
+                        new SelectSkillController(skillService, skillMapper, idMapper),
                         view
                 ),
                 new GetAllProjectsCommand(
-                        new SelectProjectController(selectService, projectMapper),
+                        new SelectProjectController(projectService, projectMapper, idMapper),
                         view
                 ),
                 new GetProjectsByNameCommand(
-                        new SelectProjectByNameController(selectService,projectMapper),
+                        new SelectProjectByNameController(projectService, projectMapper),
                         view
                 ),
                 new CreateProjectCommand(
-                        new InsertProjectController(insertService),
+                        new InsertProjectController(projectService, projectMapper),
                         view
                 )
         };

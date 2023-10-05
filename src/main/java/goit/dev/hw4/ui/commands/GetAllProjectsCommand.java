@@ -27,7 +27,7 @@ public class GetAllProjectsCommand implements Command {
 
     @Override
     public void execute() {
-        List<ProjectDto> projects = controller.select();
+        List<ProjectDto> projects = controller.selectAll();
 
         if (projects.isEmpty()){
             view.write("No projects");

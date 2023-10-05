@@ -1,6 +1,7 @@
 package goit.dev.hw4.ui.commands;
 
 import goit.dev.hw4.api.controller.SelectProjectWithDevelopersController;
+import goit.dev.hw4.model.dto.ProjectDto;
 import goit.dev.hw4.model.dto.ProjectWithDevelopersDto;
 import goit.dev.hw4.ui.View;
 
@@ -27,7 +28,7 @@ public class GetFormattedProjectWithDevelopersCommand implements Command {
 
     @Override
     public void execute() {
-        List<ProjectWithDevelopersDto> projectWithDevelopers = controller.select();
+        List<ProjectDto> projectWithDevelopers = controller.select();
 
         if (projectWithDevelopers.isEmpty()){
             view.write("No projects");
@@ -49,10 +50,10 @@ public class GetFormattedProjectWithDevelopersCommand implements Command {
         return DESC;
     }
 
-    private String format (ProjectWithDevelopersDto dto) {
-        Date date = dto.getProject().getStart();
-        String name = dto.getProject().getName();
-        int developersCount = dto.getDeveloperList().size();
+    private String format (ProjectDto dto) {
+        Date date = dto.getStart();
+        String name = dto.getName();
+        int developersCount = dto.getDeveloperCount();
         return String.format("%s - %s - %d", date, name, developersCount);
     }
 }

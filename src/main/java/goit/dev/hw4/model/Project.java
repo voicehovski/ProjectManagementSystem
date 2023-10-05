@@ -6,14 +6,16 @@ import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
 
 public class Project implements Entity {
-    private long id;
+    private Id id;
     private String name;
     private Date start; // TIMESTAMP(2),	-- Format: 2022-01-01 13:23:15.04       java.sql.Date ?
     private long company_id;
     private long customer_id;
     private int cost;
 
-    public Project(long id, String name, Date start, long company_id, long customer_id, int cost) {
+    private int developerCount;
+
+    public Project(Id id, String name, Date start, long company_id, long customer_id, int cost) {
         this.id = id;
         this.name = name;
         this.start = start;
@@ -24,13 +26,23 @@ public class Project implements Entity {
 
     public static Project createFromResultSet(ResultSet rs) throws SQLException {
         return new Project(
-                rs.getLong("id"),
+                new Id (rs.getLong("id")),
                 rs.getString("name"),
                 rs.getDate("start"),
                 rs.getLong("company_id"),
                 rs.getLong("customer_id"),
                 rs.getInt("cost")
         );
+    }
+
+    @Override
+    public void setId(Id id) {
+        this.id = id;
+    }
+
+    @Override
+    public Id getId() {
+        return id;
     }
 
     public String getName() {
@@ -53,13 +65,12 @@ public class Project implements Entity {
         return cost;
     }
 
-    @Override
-    public void setId(long id) {
-        this.id = id;
+    public int getDeveloperCount() {
+        return developerCount;
     }
 
-    @Override
-    public long getId() {
-        return id;
+    public void setDeveloperCount(int developerCount) {
+        this.developerCount = developerCount;
     }
+
 }

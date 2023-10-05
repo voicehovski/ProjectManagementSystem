@@ -2,6 +2,7 @@ package goit.dev.hw4.ui.commands;
 
 import goit.dev.hw4.api.controller.InsertDeveloperController;
 import goit.dev.hw4.model.dto.DeveloperDto;
+import goit.dev.hw4.model.dto.IdDto;
 import goit.dev.hw4.ui.View;
 
 import java.sql.Date;
@@ -37,8 +38,8 @@ public class CreateDeveloperCommand implements Command {
         view.write("Enter salary");
         int salary = Integer.parseInt(view.read());
 
-        long id = controller.insert(new DeveloperDto(name, birthDate, birthplace, gender, salary));
-        view .write ( "New developer id: " + id );
+        IdDto id = controller.insert(new DeveloperDto(name, birthDate, birthplace, gender, salary));
+        view .write ( "New developer id: " + id.getId() );
     }
 
     @Override

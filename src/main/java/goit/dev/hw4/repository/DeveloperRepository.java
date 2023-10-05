@@ -2,28 +2,35 @@ package goit.dev.hw4.repository;
 
 import goit.dev.hw4.api.mapper.DeveloperMapper;
 import goit.dev.hw4.dao.DeveloperDao;
+import goit.dev.hw4.model.Developer;
+import goit.dev.hw4.model.Id;
 import goit.dev.hw4.model.dto.DeveloperDto;
 import goit.dev.hw4.model.dto.IdDto;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class DeveloperRepository {
     private DeveloperDao developerDao;
 
-    public IdDto add (Developer entity) {    // return Dto with id ?
-        return developerDao .insert(new DeveloperMapper().toEntity(dto));
+    public DeveloperRepository(DeveloperDao developerDao) {
+        this.developerDao = developerDao;
     }
-    public DeveloperDto get (int id) {
-        developerDao .select (id);
+
+    public Id add (Developer entity) {
+        return developerDao .insert(entity);
     }
-    public List<DeveloperDto> getAll () {
-        return developerDao .selectAll() .stream()
-                .map(DeveloperMapper::toEntity);
+    public Optional<Developer> get (Id id) {
+        return developerDao .select (id);
     }
-    public boolean put (Developer entity) {
-        developerDao .update(new DeveloperMapper() .toEntity(dto));
+    public List<Developer> getAll () {
+        return developerDao .selectAll();
     }
-    public boolean remove (int id) {
-        return developerDao .delete(id) != 0;
+    public int put (Developer entity) {
+        return developerDao .update(entity);
+    }
+    public int remove (Id id) {
+        return developerDao .delete(id);
     }
 }

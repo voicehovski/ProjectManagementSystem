@@ -2,6 +2,7 @@ package goit.dev.hw4.ui.commands;
 
 import goit.dev.hw4.api.controller.UpdateDeveloperController;
 import goit.dev.hw4.model.dto.DeveloperDto;
+import goit.dev.hw4.model.dto.IdDto;
 import goit.dev.hw4.ui.View;
 
 import java.sql.Date;
@@ -40,7 +41,7 @@ public class EditDeveloperCommand implements Command {
         view.write("Enter salary");
         int salary = Integer.parseInt(view.read());
 
-        int affected = controller.update(new DeveloperDto(id, name, birthDate, birthplace, gender, salary));
+        int affected = controller.update(new DeveloperDto(new IdDto(id), name, birthDate, birthplace, gender, salary));
 
         view .write ( "Edited developers: " + affected );
     }

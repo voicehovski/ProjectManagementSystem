@@ -25,7 +25,7 @@ public class GetAllSkillsCommand implements Command {
 
     @Override
     public void execute() {
-        List<SkillDto> skills = controller.select();
+        List<SkillDto> skills = controller.selectAll();
 
         if (skills.isEmpty()){
             view.write("No skills");

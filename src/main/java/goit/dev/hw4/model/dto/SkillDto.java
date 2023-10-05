@@ -1,11 +1,11 @@
 package goit.dev.hw4.model.dto;
 
 public class SkillDto {
-    private long id;
+    private IdDto id;
     private String trend;
     private String level;
 
-    public SkillDto(long id, String trend, String level) {
+    public SkillDto(IdDto id, String trend, String level) {
         this.id = id;
         this.trend = trend;
         this.level = level;
@@ -16,7 +16,7 @@ public class SkillDto {
         this.level = level;
     }
 
-    public long getId() {
+    public IdDto getId() {
         return id;
     }
 
@@ -30,6 +30,6 @@ public class SkillDto {
 
     @Override
     public String toString() {
-        return String.format("[%d] %s %s", id, level, trend);
+        return String.format("[%d] %s %s", id.getId(), level, trend);
     }
 }

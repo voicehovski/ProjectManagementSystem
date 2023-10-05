@@ -1,30 +1,25 @@
 package goit.dev.hw4.api.controller;
 
 import goit.dev.hw4.api.mapper.Mapper;
-import goit.dev.hw4.model.builder.AgregateNumberBuilder;
+import goit.dev.hw4.model.Id;
 import goit.dev.hw4.model.dto.IdDto;
 import goit.dev.hw4.model.dto.NumberDto;
-import goit.dev.hw4.query.TotalSalaryQuery;
-import goit.dev.hw4.service.AgregateService;
+import goit.dev.hw4.service.DeveloperProjectService;
 
 public class AgregateTotalSalaryByProjectController {
 
-    private AgregateService service;
-    private Mapper<NumberDto, Integer> mapper;
+    private DeveloperProjectService service;
+    private Mapper<IdDto, Id> mapper;
 
-    public AgregateTotalSalaryByProjectController(AgregateService service, Mapper<NumberDto, Integer> mapper) {
+    public AgregateTotalSalaryByProjectController(DeveloperProjectService service, Mapper<IdDto, Id> mapper) {
         this.service = service;
         this.mapper = mapper;
     }
 
     public NumberDto select (IdDto idDto) {
-        Integer agregateValue = service.get(
-                new TotalSalaryQuery(statement -> statement.setLong(1,idDto.getId())),
-                new AgregateNumberBuilder()
+        int agregateValue = service.getTotalSalaryByProject(
+                mapper .toEntity(idDto)
         );
-        return mapper .toDto(agregateValue);
-                //.stream()
-                //.map(mapper::toDto)
-                //.collect(Collectors.toList());
+        return new NumberDto(agregateValue);
     }
 }

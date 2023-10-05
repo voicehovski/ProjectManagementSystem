@@ -4,31 +4,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Skill implements Entity {
-    private long id;
+    private Id id;
     private String trend;
     private String level;
 
     public static Skill createFromResultSet (ResultSet rs) throws SQLException {
         return new Skill(
-                rs.getLong("id"),
+                new Id ( rs.getLong("id") ),
                 rs.getString("trend"),
                 rs.getString("level")
         );
     }
 
-    public Skill(long id, String trend, String level) {
+    public Skill(Id id, String trend, String level) {
         this.id = id;
         this.trend = trend;
         this.level = level;
     }
 
     @Override
-    public void setId(long id) {
+    public void setId(Id id) {
         this .id = id;
     }
 
     @Override
-    public long getId() {
+    public Id getId() {
         return id;
     }
 

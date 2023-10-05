@@ -1,27 +1,20 @@
 package goit.dev.hw4.api.controller;
 
+import goit.dev.hw4.api.mapper.Mapper;
+import goit.dev.hw4.model.Developer;
 import goit.dev.hw4.model.dto.DeveloperDto;
-import goit.dev.hw4.query.UpdateDeveloperQuery;
-import goit.dev.hw4.service.UpdateService;
+import goit.dev.hw4.service.DeveloperService;
 
-public class UpdateDeveloperController {    // todo implements UpdateController <DeveloperDto>
-    private UpdateService service;
+public class UpdateDeveloperController {
+    private DeveloperService service;
+    private Mapper<DeveloperDto, Developer> mapper;
 
-    public UpdateDeveloperController(UpdateService service) {
+    public UpdateDeveloperController(DeveloperService service, Mapper<DeveloperDto, Developer> mapper) {
         this.service = service;
+        this.mapper = mapper;
     }
 
     public int update (DeveloperDto developerDto) {
-        return service.update(new UpdateDeveloperQuery(
-            statement -> {
-                statement.setString(1, developerDto.getName());
-                statement.setDate(2, developerDto.getBirthDate());
-                statement.setString(3, developerDto.getBirthPlace());
-                statement.setString(4, developerDto.getGender());
-                statement.setInt(5, developerDto.getSalary());
-
-                statement.setLong(6, developerDto.getId());
-            }
-        ));
+        return service.put(mapper.toEntity(developerDto));
     }
 }

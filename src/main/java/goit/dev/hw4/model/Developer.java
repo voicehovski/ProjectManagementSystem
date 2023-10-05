@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Developer implements Entity {
-    private long id;
+    private Id id;
     private String name;
     private Date birthDate;
     private String birthPlace;
@@ -14,7 +14,7 @@ public class Developer implements Entity {
 
     public static Developer createFromResultSet (ResultSet rs) throws SQLException {
         return new Developer(
-                rs.getLong("id"),
+                new Id(rs.getLong("id")),
                 rs.getString("name"),
                 rs.getDate("birth_date"),
                 rs.getString("birthplace"),
@@ -23,7 +23,7 @@ public class Developer implements Entity {
         );
     }
 
-    public Developer(long id, String name, Date birthDate, String birthPlace, String gender, int salary) {
+    public Developer(Id id, String name, Date birthDate, String birthPlace, String gender, int salary) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
@@ -33,12 +33,12 @@ public class Developer implements Entity {
     }
 
     @Override
-    public void setId (long id){
+    public void setId (Id id){
         this .id = id;
     }
 
     @Override
-    public long getId() {
+    public Id getId() {
         return id;
     }
 
