@@ -1,27 +1,35 @@
 package goit.dev.hw4.repository;
 
-import goit.dev.hw4.dao.DeveloperDao;
 import goit.dev.hw4.dao.SkillDao;
-import goit.dev.hw4.model.Developer;
+import goit.dev.hw4.model.Id;
 import goit.dev.hw4.model.Skill;
 
 import java.util.List;
+import java.util.Optional;
 
 public class SkillRepository {
-    private DeveloperDao developerDao;
     private SkillDao skillDao;
 
-    public void add (Skill entity) {}
-    public Skill get (int id) {}
-    public List<Skill> getAll () {}
-    public List<Skill> getByName (String name) {}
-    public List<Skill> getByLevel (String level) {}
-    public List<Developer> getDeveloper (List<Skill> entities) {
-        developerDao .selectBySkill(entities .stream ()
-                .map(skill -> skill .getId())
-                .toArray(Long[]::new)
-        );
+    public Id add (Skill entity) {
+        return skillDao.insert(entity);
     }
-    public void put (Skill entity) {}
-    public void remove (int id) {}
+    public Optional<Skill> get (Id id) {
+        return skillDao .select(id);
+    }
+    public List<Skill> getAll () {
+        return skillDao .selectAll();
+    }
+    public List<Skill> getByName (String name) {
+        return skillDao .selectByTrend(name);
+    }
+    public List<Skill> getByLevel (String level) {
+        return skillDao .selectByLevel(level);
+    }
+
+    public int put (Skill entity) {
+        return skillDao .update(entity);
+    }
+    public int remove (Id id) {
+        return skillDao .delete(id);
+    }
 }

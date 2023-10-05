@@ -1,6 +1,7 @@
 package goit.dev.hw4.ui.commands;
 
 import goit.dev.hw4.api.controller.InsertProjectController;
+import goit.dev.hw4.model.Id;
 import goit.dev.hw4.model.dto.ProjectDto;
 import goit.dev.hw4.ui.View;
 
@@ -37,7 +38,7 @@ public class CreateProjectCommand implements Command {
         view.write("Enter cost");
         int cost = Integer.parseInt(view.read());
 
-        long id = controller.insert(new ProjectDto(name, startDate, companyId, customerId, cost));
+        Id id = controller.insert(new ProjectDto(name, startDate, companyId, customerId, cost));
         view .write ( "New project id: " + id );
     }
 
